@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Backlog";
+}
+
+<h2>Backlog</h2>
+<nav>
+    <ul id="menu">
+        <li>@Html.ActionLink("Index", "Index", "Sprint")</li>
+        <li>@Html.ActionLink("Member", "Backlog", "Sprint")</li>
+        <li>@Html.ActionLink("Sprint Plan", "Plan", "Sprint")</li>
+        <li>@Html.ActionLink("Reports", "Report", "Sprint")</li>
+        <li>@Html.ActionLink("Epics", "Epic", "Sprint")</li>
+        <li>@Html.ActionLink("Stories", "Story", "Sprint")</li>
+        <li>@Html.ActionLink("Tasks", "Task", "Sprint")</li>
+    </ul>
+</nav>
+
+<p>
+    This is main UI where Epics/Stories get created and tracked. All the stories are kept in this Backlog bucket until gets placed into a sprint. (or whatever else based on type of agile)
+</p>

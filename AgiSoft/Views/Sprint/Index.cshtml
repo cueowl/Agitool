@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Sprint Page</h2>
+<nav>
+    <ul id="menu">
+        <li>@Html.ActionLink("Index", "Index", "Sprint")</li>
+        <li>@Html.ActionLink("Member", "Backlog", "Sprint")</li>
+        <li>@Html.ActionLink("Sprint Plan", "Plan", "Sprint")</li>
+        <li>@Html.ActionLink("Reports", "Report", "Sprint")</li>
+        <li>@Html.ActionLink("Epics", "Epic", "Sprint")</li>
+        <li>@Html.ActionLink("Stories", "Story", "Sprint")</li>
+        <li>@Html.ActionLink("Tasks", "Task", "Sprint")</li>
+    </ul>
+</nav>
+<ul>
+    <li>Possible Section-Only Dashboard</li>
+    <li>should see some sort overview here
+        <ol>
+            <li>filter view based on sprint</li>
+            <li>add items to sprint from backlog</li>
+            <li>assign to people</li>
+            <li>change status (in progress/obstacle/completed)</li>
+        </ol>
+    </li>
+    <li>links to sub areas:
+        <ol>
+            <li>backlog</li>
+            <li>Epic/Story/Task Creation screens</li>
+            <li>reports</li>
+            <li>sprint admin area(?)</li>
+        </ol>
+    </li>
+</ul>

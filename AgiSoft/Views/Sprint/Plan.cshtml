@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Plan";
+}
+
+<h2>Plan</h2>
+<nav>
+    <ul id="menu">
+        <li>@Html.ActionLink("Index", "Index", "Sprint")</li>
+        <li>@Html.ActionLink("Member", "Backlog", "Sprint")</li>
+        <li>@Html.ActionLink("Sprint Plan", "Plan", "Sprint")</li>
+        <li>@Html.ActionLink("Reports", "Report", "Sprint")</li>
+        <li>@Html.ActionLink("Epics", "Epic", "Sprint")</li>
+        <li>@Html.ActionLink("Stories", "Story", "Sprint")</li>
+        <li>@Html.ActionLink("Tasks", "Task", "Sprint")</li>
+    </ul>
+</nav>
+
+<p>
+    Here we should incorporate something to have team collaboration  with planning. Planning will include means to assign "points" to the epics that are in backlog and a 
+    decision on how many stories will be within epic.<br />
+    ScrumDo does this "poker" type game out of it. We will need a good interactive UI.
+</p>

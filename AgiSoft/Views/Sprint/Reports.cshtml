@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Reports";
+}
+
+<h2>Reports</h2>
+<nav>
+    <ul id="menu">
+        <li>@Html.ActionLink("Index", "Index", "Sprint")</li>
+        <li>@Html.ActionLink("Member", "Backlog", "Sprint")</li>
+        <li>@Html.ActionLink("Sprint Plan", "Plan", "Sprint")</li>
+        <li>@Html.ActionLink("Reports", "Report", "Sprint")</li>
+        <li>@Html.ActionLink("Epics", "Epic", "Sprint")</li>
+        <li>@Html.ActionLink("Stories", "Story", "Sprint")</li>
+        <li>@Html.ActionLink("Tasks", "Task", "Sprint")</li>
+    </ul>
+</nav>
+
+<p>
+    This will be main page for various reports that might be necessary. Biggest one will be the Burndown.
+</p>

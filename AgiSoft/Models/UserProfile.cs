@@ -1,4 +1,16 @@
-﻿using System;
+﻿/***********************************************************************************************
+************************************************************************************************
+* <author>Ralph Bohn & Harshad Deshmukh</author>                                               *
+* <email>info@cueowl.com</email>                                                               *
+* <date>2013-06-01</date>                                                                      *
+* <file>UserProfile.cs</file>                                                                  *
+* <summary>Class-Model identifying "User" table and the custom tables added</summary>          *
+* NOTE: This MUST match the table for Users                                                    * 
+************************************************************************************************      
+************************************************************************************************/
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +19,7 @@ using System.Web;
 
 namespace AgiSoft.Models {
 
-    [Table("UserProfile")]
+    [Table("Users")]
     public class UserProfile {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]

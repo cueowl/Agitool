@@ -6,7 +6,6 @@
 
 body {
     background-color: #fff;
-    border-top: solid 10px #000;
     color: #333;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
@@ -90,6 +89,16 @@ h5, h6 {
         text-decoration: none;
     }
 
+/* Top Toolbar
+----------------------------------------------------------*/
+.toptoolbar {
+    color: #eee;
+    background: #333333 url("../Images/toptoolbar_bg.gif") repeat-x top left;
+    border-bottom: 1px solid #000000;
+    height: 26px;
+    z-index:9000;
+}
+
 
 /* main layout
 ----------------------------------------------------------*/
@@ -99,9 +108,10 @@ h5, h6 {
 }
 
 #body {
-    background-color: #efeeef;
+    background-color: #fff;
     clear: both;
     padding-bottom: 35px;
+    min-height:700px;
 }
 
     .main-content {
@@ -117,12 +127,18 @@ h5, h6 {
 header .content-wrapper {
     padding-top: 20px; 
 }
+header {
+    background-color: #f2f2f2;
+    height: 120px;
+}
 
 footer {
     clear: both;
-    background-color: #e2e2e2;
     font-size: .8em;
     height: 100px;
+    background: url("../Images/footer-bg.png") repeat top;
+    color:#eee;
+    font-weight: bold;
 }
 
 

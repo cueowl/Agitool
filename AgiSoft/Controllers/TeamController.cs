@@ -1,4 +1,15 @@
-﻿using System;
+﻿/***********************************************************************************************
+************************************************************************************************
+* <author>Ralph Bohn & Harshad Deshmukh</author>                                               *
+* <email>info@cueowl.com</email>                                                               *
+* <date>2013-06-01</date>                                                                      *
+* <file>TeamController.cs</file>                                                               *
+* <summary>Contains the Controller methods for Team in MVC framework.                          *
+*      [CRUD] for team members and other functions at team level</summary>                     *
+************************************************************************************************      
+************************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;

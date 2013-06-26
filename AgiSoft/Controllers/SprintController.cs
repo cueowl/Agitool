@@ -1,4 +1,15 @@
-﻿using System;
+﻿/***********************************************************************************************
+************************************************************************************************
+* <author>Ralph Bohn & Harshad Deshmukh</author>                                               *
+* <email>info@cueowl.com</email>                                                               *
+* <date>2013-06-01</date>                                                                      *
+* <file>SprintController.cs</file>                                                             *
+* <summary>Contains the Controller methods for Sprint in MVC framework.                        *
+*      Sprint functions like backlog, E-S-T tracking, planning, etc</summary>                  *
+************************************************************************************************      
+************************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;

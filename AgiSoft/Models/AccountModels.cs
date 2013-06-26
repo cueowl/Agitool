@@ -1,4 +1,14 @@
-﻿using System;
+﻿/***********************************************************************************************
+************************************************************************************************
+* <author>Ralph Bohn & Harshad Deshmukh</author>                                               *
+* <email>info@cueowl.com</email>                                                               *
+* <date>2013-06-01</date>                                                                      *
+* <file>AccountModel.cs</file>                                                                 *
+* <summary>Model classes for Account and Entity Framework</summary>                            *
+************************************************************************************************      
+************************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

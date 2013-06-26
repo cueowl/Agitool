@@ -1,4 +1,15 @@
-﻿using System;
+﻿/***********************************************************************************************
+************************************************************************************************
+* <author>Ralph Bohn & Harshad Deshmukh</author>                                               *
+* <email>info@cueowl.com</email>                                                               *
+* <date>2013-06-01</date>                                                                      *
+* <file>AssignmentController.cs</file>                                                         *
+* <summary>Contains the Controller methods for Assignment in MVC framework.                    *
+*      Used to [CRUD] assignments and assign to users and track status</summary>               *
+************************************************************************************************      
+************************************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;

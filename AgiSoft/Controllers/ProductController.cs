@@ -3,9 +3,9 @@
 * <author>Ralph Bohn & Harshad Deshmukh</author>                                               *
 * <email>info@cueowl.com</email>                                                               *
 * <date>2013-06-01</date>                                                                      *
-* <file>ProjMgrController.cs</file>                                                            *
-* <summary>Contains the Controller methods for Project Manager in MVC framework.               *
-*      All the Project Manager Functionality 'controlled' thru here</summary>                  *
+* <file>ProductController.cs</file>                                                            *
+* <summary>Contains the Controller methods for Product in MVC framework.                       *
+*      Controls the product info for AgiSodt</summary>                                         *
 ************************************************************************************************      
 ************************************************************************************************/
 
@@ -17,10 +17,10 @@ using System.Web.Mvc;
 
 namespace AgiSoft.Controllers
 {
-    public class ProjMgrController : Controller
+    public class ProductController : Controller
     {
         //
-        // GET: /ProjMgr/
+        // GET: /Product/
 
         public ActionResult Index()
         {

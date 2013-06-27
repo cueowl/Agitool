@@ -207,6 +207,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\appsite.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -348,6 +349,11 @@
     <Content Include="Views\Assignment\Edit.cshtml" />
     <Content Include="Views\Assignment\Delete.cshtml" />
     <Content Include="Views\Obstacle\Index.cshtml" />
+    <Content Include="Views\Shared\_AppLayout.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Features.cshtml" />
+    <Content Include="Views\Product\Pricing.cshtml" />
+    <Content Include="Views\Product\Support.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

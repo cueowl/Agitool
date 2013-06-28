@@ -119,7 +119,7 @@ header {
     min-height:700px;
 }
 .topmain {
-    background: url("../Images/low_contrast_linen.png") repeat top left;
+    background: url("../Images/interiorContentBg2.jpg");
     height: 350px;
 }
 
@@ -612,6 +612,9 @@ tr.pager td {
     transition: all .2s ease-in-out;
 }
 
+    .rowblock article {
+        padding:9px;
+    }
 
 /********************
 *   Mobile Styles   *

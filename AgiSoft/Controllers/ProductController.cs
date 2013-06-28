@@ -37,5 +37,10 @@ namespace AgiSoft.Controllers {
         public ActionResult Support() {
             return View();
         }
+
+        // GET: /Product/Order/
+        public ActionResult SignUp() {
+            return View();
+        }
     }
 }

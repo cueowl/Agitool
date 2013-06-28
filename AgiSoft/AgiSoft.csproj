@@ -273,6 +273,20 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-2.0.2.intellisense.js" />
+    <Content Include="Images\checkmark.png" />
+    <Content Include="Images\dnnLogo.png" />
+    <Content Include="Images\footer-bg.png" />
+    <Content Include="Images\footerBg.jpg" />
+    <Content Include="Images\header_shadow.png" />
+    <Content Include="Images\headingBar.png" />
+    <Content Include="Images\iconsEmail.jpg" />
+    <Content Include="Images\iconsFax.jpg" />
+    <Content Include="Images\iconsPhone.jpg" />
+    <Content Include="Images\interiorBg.jpg" />
+    <Content Include="Images\interiorContentBg-fullWidth.jpg" />
+    <Content Include="Images\lineBarDark.png" />
+    <Content Include="Images\low_contrast_linen.png" />
+    <Content Include="Images\toptoolbar_bg.gif" />
     <Content Include="Scripts\jquery-2.0.2.js" />
     <Content Include="Scripts\jquery-2.0.2.min.js" />
     <Content Include="Scripts\jquery-2.0.2.min.map" />
@@ -354,6 +368,8 @@
     <Content Include="Views\Product\Features.cshtml" />
     <Content Include="Views\Product\Pricing.cshtml" />
     <Content Include="Views\Product\Support.cshtml" />
+    <Content Include="Views\Shared\_Dashboard.cshtml" />
+    <Content Include="Views\Product\SignUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

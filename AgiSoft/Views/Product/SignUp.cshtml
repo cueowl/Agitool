@@ -1,6 +1,40 @@
-﻿@{
+﻿@Scripts.Render("~/bundles/knockout")
+@{
     ViewBag.Title = "SignUp";
     Layout = "~/Views/Shared/_AppLayout.cshtml";
 }
 
 <h2>SignUp for AgiSoft --- OR --- Fill out request, Sales will call ??</h2>
+
+<div id="container">
+    <div data-bind="visible: isStep(1)">
+        Step is <span data-bind="text: step"></span> 
+        <button data-bind="click: changeStep">Next</button>
+    </div>
+    <div data-bind="visible: isStep(2)">
+        Step is <span data-bind="text: step"></span> 
+        <button data-bind="click: changeStep">Next</button>
+    </div>
+    <div data-bind="visible: isStep(3)">
+        Step is <span data-bind="text: step"></span> 
+        <button data-bind="click: changeStep">Next</button>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var viewModel = {
+        step: ko.observable(1),
+
+        isStep: function (step) {
+            return step === this.step();
+        },
+
+        changeStep: function () {
+            var prevStep = this.step();
+            this.step(prevStep + 1);
+        }
+    };    
+    
+    ko.applyBindings(viewModel);
+</script>

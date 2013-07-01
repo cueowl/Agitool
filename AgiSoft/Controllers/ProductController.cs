@@ -17,12 +17,12 @@ using System.Web.Mvc;
 
 namespace AgiSoft.Controllers {
     public class ProductController : Controller {
-        
+
         // GET: /Product/
         public ActionResult Index() {
             return View();
         }
-
+        
         // GET: /Product/Features/
         public ActionResult Features() {
             return View();

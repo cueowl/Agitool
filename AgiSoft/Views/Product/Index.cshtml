@@ -11,7 +11,8 @@
             <h2>We make Agile <span style="color:#1680B6">Easier</span> so you can focus your <span style="color:#1680B6">Time</span> on <span style="color:#1680B6">Development</span></h2>
         </div>
         <div style="padding: 75px 0 0 250px;">
-            <button type="button" name="" value="" class="getstarted">Get Started Now</button>
+            @Html.ActionLink("SignUp","SignUp", "Product")
+            <button type="button" name="signup" value="" class="getstarted" onclick="@Url.Action("SignUp","Product")">Get Started Now</button>
         </div>
     </div>
 </div>

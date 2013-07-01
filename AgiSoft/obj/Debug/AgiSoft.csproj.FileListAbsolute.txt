@@ -280,6 +280,6 @@ U:\Documents\GitHub\Agitool\AgiSoft\bin\ru\System.Spatial.resources.dll
 U:\Documents\GitHub\Agitool\AgiSoft\bin\zh-Hans\System.Spatial.resources.dll
 U:\Documents\GitHub\Agitool\AgiSoft\bin\zh-Hant\System.Spatial.resources.dll
 U:\Documents\GitHub\Agitool\AgiSoft\obj\Debug\AgiSoft.csproj.App.config
-U:\Documents\GitHub\Agitool\AgiSoft\obj\Debug\AgiSoft.csprojResolveAssemblyReference.cache
 U:\Documents\GitHub\Agitool\AgiSoft\obj\Debug\AgiSoft.dll
 U:\Documents\GitHub\Agitool\AgiSoft\obj\Debug\AgiSoft.pdb
+U:\Documents\GitHub\Agitool\AgiSoft\obj\Debug\AgiSoft.csprojResolveAssemblyReference.cache

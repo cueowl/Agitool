@@ -17,17 +17,7 @@ using System.Globalization;
 using System.Web.Security;
 
 namespace AgiSoft.Models {
-    /* Not needed with doing own validations *//*
-    public class UsersContext : DbContext {
-        public UsersContext()
-            : base("DefaultConnection") {
-        }
-
-        public DbSet<UserProfile> UserProfiles { get; set; }
-    }
-    */
-
-
+   
     public class RegisterExternalLoginModel {
         [Required]
         [Display(Name = "User name")]

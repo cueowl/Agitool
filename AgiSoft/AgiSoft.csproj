@@ -196,13 +196,13 @@
     <Compile Include="Controllers\ProjMgrController.cs" />
     <Compile Include="Controllers\SprintController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="MemProv\Cue-MembProv.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AgiSoftDb.cs" />
+    <Compile Include="Models\CueDb.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -373,6 +373,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

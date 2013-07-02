@@ -7,17 +7,50 @@
 <h2>SignUp for AgiSoft --- OR --- Fill out request, Sales will call ??</h2>
 
 <div id="container">
+    <span data-bind="text: step"></span> 
     <div data-bind="visible: isStep(1)">
         Step is <span data-bind="text: step"></span> 
+        <ul>
+            <li>Registration:</li>
+            <li>Name - First/Last</li>
+            <li>Contact Info</li>
+            <li>company info</li>
+            <li>username/pass</li>
+        </ul>
         <button data-bind="click: changeStep">Next</button>
     </div>
     <div data-bind="visible: isStep(2)">
         Step is <span data-bind="text: step"></span> 
+        <ul>
+            <li>Select plan</li>
+            <li>Add any options (if implemented)</li>
+        </ul>
+        <button data-bind="click: prevStep">Back</button>
         <button data-bind="click: changeStep">Next</button>
     </div>
     <div data-bind="visible: isStep(3)">
         Step is <span data-bind="text: step"></span> 
+        <ul>
+            <li>Payment Info</li>
+        </ul>
+        <button data-bind="click: prevStep">Back</button>
         <button data-bind="click: changeStep">Next</button>
+    </div>
+    <div data-bind="visible: isStep(4)">
+        Step is <span data-bind="text: step"></span> 
+        <ul>
+            <li>Review and submit</li>
+        </ul>
+        <button data-bind="click: prevStep">Back</button>
+        <button data-bind="click: changeStep">Save</button>
+    </div>
+    <div data-bind="visible: isStep(5)">
+        Step is <span data-bind="text: step"></span> 
+        <ul>
+            <li>Confirmation Screen</li>
+            <li>Maybe refresh to main or something</li>
+            <li>behind scenes should mail a receipt and also a welcome message</li>
+        </ul>
     </div>
 </div>
 
@@ -31,8 +64,12 @@
         },
 
         changeStep: function () {
-            var prevStep = this.step();
-            this.step(prevStep + 1);
+            var curStep = this.step();
+            this.step(curStep + 1);
+        },
+        prevStep: function () {
+            var curStep = this.step();
+            this.step(curStep - 1);
         }
     };    
     

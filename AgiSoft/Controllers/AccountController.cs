@@ -20,7 +20,6 @@ using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using AgiSoft.Models;
-//using AgiSoft.MemProv;
 
 namespace AgiSoft.Controllers {
     [Authorize]

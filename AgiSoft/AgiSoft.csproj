@@ -203,7 +203,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AgiSoftDb.cs" />
     <Compile Include="Models\CueDb.cs" />
-    <Compile Include="Models\UserProfile.cs" />
+    <Compile Include="Models\UserMember.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -394,7 +394,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>62203</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:59712/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

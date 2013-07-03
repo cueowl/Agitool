@@ -11,11 +11,8 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace AgiSoft.Models {
 
@@ -52,7 +49,49 @@ namespace AgiSoft.Models {
 
         public string UserName { get; set; }
 
+        [ForeignKey("Client")]
         public int ClientId { get; set; }
+
+        public virtual Client Client { get; set; }
+    }
+
+    public class webpages_Membership {
+        [Key,ForeignKey("UserProfile")]
+        public int UserId { get; set; }
+
+        public DateTime CreateDate { get; set; }
+        public string ConfirmationToken { get; set; }
+        public bool IsConfirmed { get; set; }
+        public DateTime LastPasswordFailureDate { get; set; }
+        public int PasswordFailuresSinceLastSuccess { get; set; }
+        public string Password { get; set; }
+        public DateTime PasswordChangedDate { get; set; }
+        public string PasswordSalt { get; set; }
+        public string PasswordVerificationToken { get; set; }
+        public DateTime PasswordVerificationTokenExpirationDate { get; set; }
+
+        public virtual UserProfile UserProfile { get; set; }
+    }
+
+    public class webpages_Roles {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int RoleId { get; set; }
+
+        public string RoleName { get; set; }
+    }
+
+    public class webpages_UsersInRoles {
+        [Key, ForeignKey("Roles")]
+        [Column(Order=1)]
+        public int RoleId { get; set; }
+
+        [Key, ForeignKey("UserProfile")]
+        [Column(Order = 2)]
+        public int UserId { get; set; }
+
+        public virtual webpages_Roles Roles { get; set; }
+        public virtual UserProfile UserProfile { get; set; }
     }
 
     public class CodeSet {
@@ -64,11 +103,14 @@ namespace AgiSoft.Models {
 
         public string CodeSetDesc { get; set; }
 
+        [ForeignKey("CodeSetType")]
         public int CodeSetTypeId { get; set; }
 
         public int ModifiedBy { get; set; }
 
         public DateTime ModifiedDate { get; set; }
+
+        public virtual CodeSetType CodeSetType { get; set; }
     }
 
     public class CodeSetType {
@@ -92,6 +134,7 @@ namespace AgiSoft.Models {
 
         public int UserId { get; set; }
 
+        [ForeignKey("PasswordQuestions")]
         public int PassQuesId { get; set; }
 
         [Display(Name = "Secret Answer")]
@@ -102,6 +145,8 @@ namespace AgiSoft.Models {
         public DateTime EntryDate { get; set; }
 
         public DateTime ChangeDate { get; set; }
+
+        public virtual PasswordQuestions PasswordQuestions { get; set; }
     }
 
     public class PasswordHistory {
@@ -114,6 +159,7 @@ namespace AgiSoft.Models {
         public string Password { get; set; }
 
         public DateTime Date { get; set; }
+
     }
 
     public class PasswordQuestions {

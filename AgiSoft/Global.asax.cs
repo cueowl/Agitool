@@ -17,7 +17,7 @@ namespace AgiSoft {
 
             if (!WebSecurity.Initialized) {
                 WebSecurity.InitializeDatabaseConnection("CueConnect", "User", "UserId", "Username", autoCreateTables: false);
-                WebSecurity.InitializeDatabaseConnection("AgiConnect", "UserProfile", "UserId", "UserName", autoCreateTables: false);
+                //WebSecurity.InitializeDatabaseConnection("AgiConnect", "UserProfile", "UserId", "UserName", autoCreateTables: false);
             }
 
             AreaRegistration.RegisterAllAreas();

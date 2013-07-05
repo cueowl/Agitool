@@ -28,6 +28,7 @@ namespace AgiSoft.Models {
         public DbSet<Products> Products { get; set; }
         public DbSet<Registrations> Registrations { get; set; }
         public DbSet<ClientProdReg> ClientProdRegs { get; set; }
+        public DbSet<webpages_Membership> Membership { get; set; }
     }
 
     public class Client {
@@ -80,6 +81,8 @@ namespace AgiSoft.Models {
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ProdId { get; set; }
         public string ProdName { get; set; }
+        public string ProdDesc { get; set; }
+        public string Message { get; set; }
         public virtual ICollection<ClientProdReg> ClientProdRegs { get; set; }
     }
 

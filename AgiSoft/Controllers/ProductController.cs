@@ -14,11 +14,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AgiSoft.Models;
+using System.Data;
 
 namespace AgiSoft.Controllers {
     public class ProductController : Controller {
+        // Fields
+        CueDb db = new CueDb();
 
-        // GET: /Product/
+
+        // GET: /Product
         public ActionResult Index() {
             return View();
         }
@@ -41,6 +46,83 @@ namespace AgiSoft.Controllers {
         // GET: /Product/Order/
         public ActionResult SignUp() {
             return View();
+        }
+
+        // GET: /Product/Admin
+        public ActionResult Admin() {
+            return View(db.Products.ToList());
+        }
+
+        // GET: /Product/Details/5
+        public ActionResult Details(int id=0) {
+            Products products = db.Products.Find(id);
+            if (products == null) {
+                return HttpNotFound();
+            }
+            return View(products);
+        }
+
+        // GET: /Product/Create
+        public ActionResult Create() {
+            
+            return View();
+        }
+
+        // POST: /Product/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Products products) {
+            if (ModelState.IsValid) {
+                db.Products.Add(products);
+                db.SaveChanges();
+                return RedirectToAction("Admin");
+            }
+
+            return View(products);
+        }
+
+        // GET: /Product/Edit/5
+        public ActionResult Edit(int id) {
+            Products products = db.Products.Find(id);
+            if (products == null) {
+                return HttpNotFound();
+            }
+            return View(products);
+        }
+
+        // POST: /Product/Edit/5
+        [HttpPost]
+        public ActionResult Edit(Products products) {
+            if (ModelState.IsValid) {
+                db.Entry(products).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Admin");
+            }
+            return View(products);
+        }
+
+        // GET: /Product/Delete/5
+        public ActionResult Delete(int id=0) {
+            Products products = db.Products.Find(id);
+            if (products == null) {
+                return HttpNotFound();
+            }
+            return View(products);
+        }
+
+        // POST: /Product/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id) {
+            Products products = db.Products.Find(id);
+            db.Products.Remove(products);
+            db.SaveChanges();
+            return RedirectToAction("Admin");
+        }
+
+        protected override void Dispose(bool disposing) {
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

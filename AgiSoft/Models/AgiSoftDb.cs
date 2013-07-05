@@ -47,6 +47,8 @@ namespace AgiSoft.Models {
         public DbSet<UserOnProject> UserOnProject { get; set; }
         public DbSet<UsersInRoles> UsersInRoles { get; set; }
         public DbSet<UsersOnTeam> UsersOnTeam { get; set; }
+        public DbSet<webpages_Roles> Roles { get; set; }
+        public DbSet<webpages_Membership> Membership { get; set; }
     }
 
     public class Epics {

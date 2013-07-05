@@ -1,0 +1,49 @@
+﻿@model Tuple<AgiSoft.Models.webpages_Roles, AgiSoft.Models.RoleGroups>
+
+@{
+    ViewBag.Title = "RolesDetails";
+}
+
+@if (ViewBag.Type == "role") {
+    <p>Test results are role</p>
+    
+    <h2>RolesDetails</h2>
+
+    <fieldset>
+        <legend>Roles</legend>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.Item1.RoleName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Item1.RoleName)
+        </div>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id=Model.Item1.RoleId }) |
+        @Html.ActionLink("Back to List", "Roles")
+    </p>
+}
+
+@if(ViewBag.Type == "group"){
+    <p>quizzing the group</p>
+    
+    <h2>Group Details</h2>
+    
+    <fieldset>
+        <legend>Role Groups</legend>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(rg => rg.Item2.GroupName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(rg => rg.Item2.GroupName)
+        </div>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Edit", "RolesEdit", new{id=Model.Item2.RoleGroupId}) |
+        @Html.ActionLink("Back to List", "Roles")
+    </p>
+}
+
+

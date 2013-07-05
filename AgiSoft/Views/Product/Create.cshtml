@@ -1,0 +1,37 @@
+﻿@model AgiSoft.Models.Products
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AppLayout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Products</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProdName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProdName)
+            @Html.ValidationMessageFor(model => model.ProdName)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>                
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Admin")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

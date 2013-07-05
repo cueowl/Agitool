@@ -1,0 +1,23 @@
+﻿@model AgiSoft.Models.Products
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AppLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Products</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProdName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProdName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ProdId }) |
+    @Html.ActionLink("Back to List", "Admin")
+</p>

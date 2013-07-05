@@ -62,14 +62,21 @@ namespace AgiSoft.Controllers {
         // POST: /Admin/RolesCreate/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RolesCreate(webpages_Roles roles) {
+        public ActionResult RolesCreate(Object item, string type) {
             if (ModelState.IsValid) {
-                db.Roles.Add(roles);
+                if (type == "role") {
+                    db.Roles.Add(item as webpages_Roles);
+                    ViewBag.Type = type;
+                }
+                else if (type == "group") {
+                    db.RoleGroups.Add(item as RoleGroups);
+                    ViewBag.Type = "group";
+                }
                 db.SaveChanges();
                 RedirectToAction("Roles");
             }
 
-            return View(roles);
+            return View(item);
         }
 
         // GET: /Admin/RolesEdit

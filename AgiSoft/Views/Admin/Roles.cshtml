@@ -7,9 +7,9 @@
 <h2>Roles and Groups</h2>
 
 <p>
-    @Html.ActionLink("Create Role", "CreateRoles")
-    @Html.ActionLink("Create Group", "CreateRoles")
-    @Html.ActionLink("Add Role to Group", "CreateRoles")
+    @Html.ActionLink("Create Role", "RolesCreate")
+    @Html.ActionLink("Create Group", "RolesCreate", new { type = "group" })
+    @Html.ActionLink("Add Role to Group", "RolesCreate")
 </p>
 <table style="width:100%;">
     <tr>

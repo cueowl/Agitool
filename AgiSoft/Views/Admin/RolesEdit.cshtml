@@ -1,0 +1,95 @@
+﻿@model Tuple<AgiSoft.Models.webRoles, AgiSoft.Models.RoleGroups, List<AgiSoft.Models.RolesInGroups>, List<AgiSoft.Models.webRoles>>
+
+@{
+    ViewBag.Title = "RolesEdit";
+}
+
+@if(ViewBag.Type == "role"){
+    <h2>RolesEdit</h2>
+
+    using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>webpages_Roles</legend>
+
+            @Html.HiddenFor(m => m.Item1.RoleName)
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Item1.RoleName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Item1.RoleName)
+                @Html.ValidationMessageFor(m => m.Item1.RoleName)
+            </div>
+
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+    }
+}
+
+@if(ViewBag.Type == "group"){
+    <div style="position:relative;float:left;">
+        <h2>Edit Groups</h2>
+
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>webpages_Roles</legend>
+
+                @Html.HiddenFor(m => m.Item2.GroupName)
+
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Item2.GroupName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.Item2.GroupName)
+                    @Html.ValidationMessageFor(m => m.Item2.GroupName)
+                </div>
+
+                <p>
+                    <input type="submit" value="Save" />
+                </p>
+            </fieldset>
+        }
+     </div>
+     <div style="position:relative;float:right;">
+        <h2>Edit Role in Group</h2>
+
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>Roles in @Model.Item3.ElementAt(0)</legend>
+
+                @foreach (var item in Model.Item3) {
+                    @Html.DisplayFor(rName => item.Roles.RoleName);
+                    
+                }               
+                <br /><br />All Roles <br />
+                TODO: Make this part drag drop editable: <br />
+                @foreach (var item in Model.Item4) {
+                    @Html.DisplayFor(role => item.RoleName);
+                    <br />
+                }
+                <p>
+                    <input type="submit" value="Save" />
+                </p>
+            </fieldset>
+        }
+   </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

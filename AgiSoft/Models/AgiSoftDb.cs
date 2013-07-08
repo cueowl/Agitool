@@ -47,7 +47,7 @@ namespace AgiSoft.Models {
         public DbSet<UserOnProject> UserOnProject { get; set; }
         public DbSet<UsersInRoles> UsersInRoles { get; set; }
         public DbSet<UsersOnTeam> UsersOnTeam { get; set; }
-        public DbSet<webpages_Roles> Roles { get; set; }
+        public DbSet<webRoles> Roles { get; set; }
         public DbSet<webpages_Membership> Membership { get; set; }
     }
 
@@ -255,7 +255,7 @@ namespace AgiSoft.Models {
         public int RoleGroupId { get; set; }
 
         public virtual RoleGroups RoleGroups { get; set; }
-        public virtual webpages_Roles Roles { get; set; }
+        public virtual webRoles Roles { get; set; }
     }
 
     public class Settings {
@@ -366,7 +366,7 @@ namespace AgiSoft.Models {
         public int RoleId { get; set; }
 
         public virtual UserProfile UserProfile { get; set; }
-        public virtual webpages_Roles Roles { get; set; }
+        public virtual webRoles Roles { get; set; }
     }
 
     public class UsersOnTeam {
@@ -380,5 +380,19 @@ namespace AgiSoft.Models {
 
         public virtual UserProfile UserProfile { get; set; }
         public virtual Teams Teams { get; set; }
+    }
+
+    [Table("webpages_Roles")]
+    public class webRoles {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int RoleId { get; set; }
+
+        public string RoleName { get; set; }
+        
+//        [ForeignKey("Settings")]
+        public int SettingId { get; set; }
+
+        //public virtual Settings Settings { get; set; }
     }
 }

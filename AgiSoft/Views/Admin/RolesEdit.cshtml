@@ -12,20 +12,25 @@
             {
                 stack: '#dragRole div',
                 cursor: 'move',
-                revert: true
+                revert: 'invalid'
+            });
+        $('#rGrp').droppable(
+            {
+                stack: '#dragRole div',
+                hoverClass: 'rConHover',
+                drop: function (event, ui) {
+                    $(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo(this);
+                }
             });
         
         $('#rContain').droppable(
             {
                 stack: '#dragRole div',
                 hoverClass: 'rConHover',
-                drop: handleDrop
+                drop: function (event, ui) {
+                    $(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo(this);
+                }
             });
-    }
-
-    function handleDrop(event, ui) {
-        //ui.draggable.position({ of: inherit, my: 'left top', at: 'left top' });
-        ui.draggable.draggable('option', 'revert', false);
     }
 </script>
 
@@ -108,7 +113,6 @@
                                        <div id="rContain">
                                            @foreach (var i in Model.Item3) {
                                                <div id="dragRole" class="dragRole">@i.Roles.RoleName</div>
-                                               <br />
                                            }
                                        </div>
                                    </td>
@@ -134,7 +138,6 @@
                                              }
                                              if (!s.Equals("")) {
                                                  <div id="dragRole" class="dragRole">@r.RoleName</div>
-                                                 <br />
                                              }
                                          }
                                      </div>

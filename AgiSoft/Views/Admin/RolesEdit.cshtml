@@ -40,6 +40,7 @@
     using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
+            @Html.Hidden("type","role")
 
         <fieldset>
             <legend>webpages_Roles</legend>
@@ -68,18 +69,24 @@
         @using (Html.BeginForm()) {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
-
+            @Html.Hidden("type","grp")
             <fieldset>
                 <legend>Role Groups</legend>
-
-                @Html.HiddenFor(m => m.Item2.GroupName)
-
+                <input data-val="true" data-val-number="The field RoleGroupId must be a number." data-val-required="The RoleGroupId field is required."                     id="RoleGroupId" name="RoleGroupId" type="hidden" value="@Model.Item2.RoleGroupId" />
                 <div class="editor-label">
                     @Html.LabelFor(m => m.Item2.GroupName)
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(m => m.Item2.GroupName)
                     @Html.ValidationMessageFor(m => m.Item2.GroupName)
+                </div>
+                <br /><br />
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Item2.Description)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.Item2.Description)
+                    @Html.ValidationMessageFor(m => m.Item2.Description)
                 </div>
 
                 <p>
@@ -94,6 +101,7 @@
          @using (Html.BeginForm()) {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
+            @Html.Hidden("type","rg")
 
              <table style="min-height:200px;" onload="init();">
                  <tr>

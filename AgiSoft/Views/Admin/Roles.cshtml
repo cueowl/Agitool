@@ -1,4 +1,4 @@
-﻿@model Tuple<List<AgiSoft.Models.webpages_Roles>, List<AgiSoft.Models.RoleGroups>, List<AgiSoft.Models.RolesInGroups>>
+﻿@model Tuple<List<AgiSoft.Models.webRoles>, List<AgiSoft.Models.RoleGroups>, List<AgiSoft.Models.RolesInGroups>>
 
 @{
     ViewBag.Title = "Roles";
@@ -8,8 +8,8 @@
 
 <p>
     @Html.ActionLink("Create Role", "RolesCreate")
-    @Html.ActionLink("Create Group", "RolesCreate", new { type = "group" })
-    @Html.ActionLink("Add Role to Group", "RolesCreate")
+    @Html.ActionLink("Create Group", "GroupsCreate")
+    @Html.ActionLink("Add Role to Group", "RolesEdit")
 </p>
 <table style="width:100%;">
     <tr>

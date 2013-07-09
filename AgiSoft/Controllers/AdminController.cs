@@ -35,7 +35,7 @@ namespace AgiSoft.Controllers {
 
         // GET: /Admin/RolesDetails
         public ActionResult RolesDetails(int id = 0) {
-            webpages_Roles roles = db.Roles.Find(id);
+            webRoles roles = db.Roles.Find(id);
             RoleGroups rg = db.RoleGroups.Find(id);
 
             if (roles == null && rg == null) {
@@ -62,40 +62,65 @@ namespace AgiSoft.Controllers {
         // POST: /Admin/RolesCreate/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RolesCreate(Object item, string type) {
+        public ActionResult RolesCreate(webRoles roles) {
             if (ModelState.IsValid) {
-                if (type == "role") {
-                    db.Roles.Add(item as webpages_Roles);
-                    ViewBag.Type = type;
-                }
-                else if (type == "group") {
-                    db.RoleGroups.Add(item as RoleGroups);
-                    ViewBag.Type = "group";
-                }
+                db.Roles.Add(roles);
                 db.SaveChanges();
-                RedirectToAction("Roles");
+                return RedirectToAction("Roles");
             }
+            return View(roles);
+        }
 
-            return View(item);
+        // GET: /Admin/GroupsCreate
+        public ActionResult GroupsCreate() {
+
+            return View();
+        }
+
+        // POST: /Admin/GroupsCreate/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GroupsCreate(RoleGroups groups) {
+            if (ModelState.IsValid) {
+                db.RoleGroups.Add(groups);
+                db.SaveChanges();
+                return RedirectToAction("Roles");
+            }
+            return View(groups);
         }
 
         // GET: /Admin/RolesEdit
         public ActionResult RolesEdit(int id) {
-            webpages_Roles roles = db.Roles.Find(id);
-            if (roles == null) {
+            webRoles roles = db.Roles.Find(id);
+            List<webRoles> rlist = null;
+            RoleGroups groups = db.RoleGroups.Find(id);
+            List<RolesInGroups> rig = null;
+
+            if (roles == null && groups == null) {
                 return HttpNotFound();
             }
+            
+            if (roles != null) {
+                ViewBag.Type = "role";
+                groups = null;
+            }
+            if (groups != null) {
+                ViewBag.Type = "group";
+                rig = db.RolesInGroups.ToList();
+                rlist = db.Roles.ToList();
+                roles = null;
+            }
 
-            return View(roles);
+            return View(Tuple.Create(roles,groups,rig,rlist));
         }
 
         // POST: /Admin/RolesEdit/5
         [HttpPost]
-        public ActionResult RolesEdit(webpages_Roles roles) {
+        public ActionResult RolesEdit(webRoles roles) {
             if (ModelState.IsValid) {
                 db.Entry(roles).State = EntityState.Modified;
                 db.SaveChanges();
-                RedirectToAction("Roles");
+                return RedirectToAction("Roles");
             }
 
             return View(roles);
@@ -103,7 +128,7 @@ namespace AgiSoft.Controllers {
 
         // GET: /Admin/RolesDelete
         public ActionResult RolesDelete(int id = 0) {
-            webpages_Roles roles = db.Roles.Find(id);
+            webRoles roles = db.Roles.Find(id);
             if (roles == null) {
                 return HttpNotFound();
             }
@@ -114,7 +139,7 @@ namespace AgiSoft.Controllers {
         [HttpPost, ActionName("RolesDelete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
-            webpages_Roles roles = db.Roles.Find(id);
+            webRoles roles = db.Roles.Find(id);
             db.Roles.Remove(roles);
             db.SaveChanges();
             return RedirectToAction("Roles");

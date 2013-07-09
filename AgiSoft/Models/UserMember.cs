@@ -73,6 +73,7 @@ namespace AgiSoft.Models {
         public virtual UserProfile UserProfile { get; set; }
     }
 
+    /*
     public class webpages_Roles {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -80,6 +81,7 @@ namespace AgiSoft.Models {
 
         public string RoleName { get; set; }
     }
+     * */
 
     public class webpages_UsersInRoles {
         [Key, ForeignKey("Roles")]
@@ -90,7 +92,7 @@ namespace AgiSoft.Models {
         [Column(Order = 2)]
         public int UserId { get; set; }
 
-        public virtual webpages_Roles Roles { get; set; }
+        public virtual webRoles Roles { get; set; }
         public virtual UserProfile UserProfile { get; set; }
     }
 

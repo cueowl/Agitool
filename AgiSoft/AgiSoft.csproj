@@ -378,6 +378,9 @@
     <Content Include="Views\Admin\Roles.cshtml" />
     <Content Include="Views\Admin\RolesDetails.cshtml" />
     <Content Include="Views\Admin\RolesCreate.cshtml" />
+    <Content Include="Views\Admin\GroupsCreate.cshtml" />
+    <Content Include="Views\Admin\RolesEdit.cshtml" />
+    <Content Include="Views\Admin\vRig.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -43,8 +43,34 @@ namespace AgiSoft.Controllers {
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl) {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe)) {
-                return RedirectToLocal(returnUrl);
+            using (var db = new CueDb()) {
+                if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe)) {
+                    //if login successful, check if user has access to product
+                    //get userId
+                    var uid = db.Users.First(u=>u.UserName == model.UserName).UserId;
+                    //Get Client Id    
+                    var cid = db.Clients.First(c => c.UserId == uid).ClientId;
+                    // Get the Product Id
+                    var prod = db.ClientProdRegs.First(p => p.ClientId == cid).ProdId;
+
+                    // Check if product ID is 3 (meaning AgiSoft)
+                    if (prod == 3) {
+                        // Do something
+                        return RedirectToAction("Roles", "Admin");
+                    }
+
+                    /*
+                    var uid = db.Users.Where(x => x.UserName == model.UserName).Select(u => u.UserId);
+                    var clid = db.Clients.Where(c => c.UserId == int.Parse(uid.ToString())).Select(i => i.ClientId);
+                    var pid = db.ClientProdRegs.Where(p => p.ClientId == int.Parse(clid.ToString())).Select(p => p.ProdId);
+                    // TODO: this does not work grrr
+
+                    if (pid.Equals(1)) {
+                        return RedirectToAction("Roles", "Admin");
+                    }
+                    */
+                    return RedirectToLocal(returnUrl);
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -81,12 +107,7 @@ namespace AgiSoft.Controllers {
             if (ModelState.IsValid) {
                 // Attempt to register the user
                 try {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new {Email = model.Email,
-                                                                                          FName = model.FName,
-                                                                                          LName = model.LName,
-                                                                                          Mobile = model.Mobile,
-                                                                                          City = model.City,
-                                                                                          State = "",Country = ""});
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 } catch (MembershipCreateUserException e) {

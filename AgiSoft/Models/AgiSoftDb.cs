@@ -389,10 +389,6 @@ namespace AgiSoft.Models {
         public int RoleId { get; set; }
 
         public string RoleName { get; set; }
-        
-//        [ForeignKey("Settings")]
-        public int SettingId { get; set; }
-
-        //public virtual Settings Settings { get; set; }
+        public string RoleDesc { get; set; }
     }
 }

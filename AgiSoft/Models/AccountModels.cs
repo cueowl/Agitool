@@ -85,19 +85,6 @@ namespace AgiSoft.Models {
         [Display(Name = "Last Name: ")]
         public string LName { get; set; }
 
-        [Display(Name = "Cell Number: ")]
-        [DataType(DataType.PhoneNumber)]
-        public string Mobile { get; set; }
-
-        [Display(Name = "City: ")]
-        public string City { get; set; }
-
-        [Display(Name = "State: ")]
-        public string State { get; set; }
-
-        [Display(Name = "Country: ")]
-        public string Country { get; set; }
-
         public bool IsLocked { get; set; }
     }
 

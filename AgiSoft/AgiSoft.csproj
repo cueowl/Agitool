@@ -283,7 +283,6 @@
     <Content Include="Images\iconsFax.jpg" />
     <Content Include="Images\iconsPhone.jpg" />
     <Content Include="Images\interiorBg.jpg" />
-    <Content Include="Images\interiorContentBg-fullWidth.jpg" />
     <Content Include="Images\lineBarDark.png" />
     <Content Include="Images\low_contrast_linen.png" />
     <Content Include="Images\toptoolbar_bg.gif" />

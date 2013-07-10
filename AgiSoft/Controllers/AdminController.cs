@@ -116,11 +116,27 @@ namespace AgiSoft.Controllers {
 
         // POST: /Admin/RolesEdit/5
         [HttpPost]
-        public ActionResult RolesEdit(webRoles roles) {
-            if (ModelState.IsValid) {
-                db.Entry(roles).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Roles");
+        public ActionResult RolesEdit(webRoles roles,RoleGroups grp, RolesInGroups rg, string type) {
+            if (type == "role") {
+                if (ModelState.IsValid) {
+                    db.Entry(roles).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Roles");
+                }
+            }
+            if (type == "grp") {
+                if (ModelState.IsValid) {
+                    db.Entry(grp).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Roles");
+                }
+            }
+            if (type == "rg") {
+                if (ModelState.IsValid) {
+                    db.Entry(rg).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Roles");
+                }
             }
 
             return View(roles);

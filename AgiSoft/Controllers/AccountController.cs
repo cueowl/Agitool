@@ -59,16 +59,6 @@ namespace AgiSoft.Controllers {
                         return RedirectToAction("Roles", "Admin");
                     }
 
-                    /*
-                    var uid = db.Users.Where(x => x.UserName == model.UserName).Select(u => u.UserId);
-                    var clid = db.Clients.Where(c => c.UserId == int.Parse(uid.ToString())).Select(i => i.ClientId);
-                    var pid = db.ClientProdRegs.Where(p => p.ClientId == int.Parse(clid.ToString())).Select(p => p.ProdId);
-                    // TODO: this does not work grrr
-
-                    if (pid.Equals(1)) {
-                        return RedirectToAction("Roles", "Admin");
-                    }
-                    */
                     return RedirectToLocal(returnUrl);
                 }
             }

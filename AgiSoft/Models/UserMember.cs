@@ -37,7 +37,7 @@ namespace AgiSoft.Models {
 
         public int SettingId { get; set; }
 
-        public DateTime ChangeDate { get; set; }
+        public DateTime? ChangeDate { get; set; }
     }
 
     

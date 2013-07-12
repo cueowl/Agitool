@@ -24,9 +24,8 @@ using AgiSoft.Models;
 namespace AgiSoft.Controllers {
     [Authorize]
     public class AccountController : Controller {
-        //
+        
         // GET: /Account/Login
-
         [AllowAnonymous]
         public ActionResult Login(string returnUrl) {
             if (User.Identity.IsAuthenticated) {
@@ -36,9 +35,7 @@ namespace AgiSoft.Controllers {
             return View();
         }
 
-        //
         // POST: /Account/Login
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -59,6 +56,16 @@ namespace AgiSoft.Controllers {
                         return RedirectToAction("Roles", "Admin");
                     }
 
+                    /*
+                    var uid = db.Users.Where(x => x.UserName == model.UserName).Select(u => u.UserId);
+                    var clid = db.Clients.Where(c => c.UserId == int.Parse(uid.ToString())).Select(i => i.ClientId);
+                    var pid = db.ClientProdRegs.Where(p => p.ClientId == int.Parse(clid.ToString())).Select(p => p.ProdId);
+                    // TODO: this does not work grrr
+
+                    if (pid.Equals(1)) {
+                        return RedirectToAction("Roles", "Admin");
+                    }
+                    */
                     return RedirectToLocal(returnUrl);
                 }
             }
@@ -68,9 +75,7 @@ namespace AgiSoft.Controllers {
             return View(model);
         }
 
-        //
         // POST: /Account/LogOff
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff() {
@@ -79,19 +84,13 @@ namespace AgiSoft.Controllers {
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/Register
-
-        [AllowAnonymous]
+        // GET: /Account/Register  --- Registration not available to general public. Users are added by managers in account
         public ActionResult Register() {
             return View();
         }
 
-        //
         // POST: /Account/Register
-
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model) {
             if (ModelState.IsValid) {
@@ -109,9 +108,7 @@ namespace AgiSoft.Controllers {
             return View(model);
         }
 
-        //
         // POST: /Account/Disassociate
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Disassociate(string provider, string providerUserId) {
@@ -134,9 +131,7 @@ namespace AgiSoft.Controllers {
             return RedirectToAction("Manage", new { Message = message });
         }
 
-        //
         // GET: /Account/Manage
-
         public ActionResult Manage(ManageMessageId? message) {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
@@ -148,9 +143,7 @@ namespace AgiSoft.Controllers {
             return View();
         }
 
-        //
         // POST: /Account/Manage
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Manage(LocalPasswordModel model) {
@@ -197,6 +190,7 @@ namespace AgiSoft.Controllers {
             return View(model);
         }
 
+        #region External
         //
         // POST: /Account/ExternalLogin
 
@@ -307,6 +301,7 @@ namespace AgiSoft.Controllers {
             ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
+        #endregion
 
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl) {

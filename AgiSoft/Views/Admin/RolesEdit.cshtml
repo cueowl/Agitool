@@ -72,7 +72,9 @@
             @Html.Hidden("type","grp")
             <fieldset>
                 <legend>Role Groups</legend>
-                <input data-val="true" data-val-number="The field RoleGroupId must be a number." data-val-required="The RoleGroupId field is required."                     id="RoleGroupId" name="RoleGroupId" type="hidden" value="@Model.Item2.RoleGroupId" />
+                <input data-val="true" data-val-number="The field RoleGroupId must be a number." data-val-required="The RoleGroupId field is required." 
+                    id="RoleGroupId" name="RoleGroupId" type="hidden" value="@Model.Item2.RoleGroupId" />
+
                 <div class="editor-label">
                     @Html.LabelFor(m => m.Item2.GroupName)
                 </div>

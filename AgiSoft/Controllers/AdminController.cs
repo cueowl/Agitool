@@ -183,16 +183,15 @@ namespace AgiSoft.Controllers {
                 // Attempt to register the user
                 try {
                     string user = User.Identity.Name;
-                    /*
+                    
                     model.Password = "temppass";
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
-                    */
+                    
                     AgiUser u = new AgiUser(model);
                     
                     string result = u.AddUser(user);
                     
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ToolUsers");
                 } catch (MembershipCreateUserException e) {
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                 }
@@ -200,6 +199,27 @@ namespace AgiSoft.Controllers {
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        // GET: /Admin/DeleteToolUsers
+        public ActionResult DeleteToolUsers(int id = 0) {
+            UserProfile up = db.UserProfiles.Find(id);
+            if (up == null) {
+                return HttpNotFound();
+            }
+
+            return View(up);
+        }
+
+        // POST: /Admin/DeleteToolUsers
+        [HttpPost, ActionName("DeleteToolUsers")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ToolUserDeleteConfirm(int id) {
+            UserProfile up = db.UserProfiles.Find(id);
+            AgiUser agi = new AgiUser();
+            agi.DeleteUser(up);
+
+            return RedirectToAction("ToolUSers");
         }
 
         private static string ErrorCodeToString(MembershipCreateStatus createStatus) {

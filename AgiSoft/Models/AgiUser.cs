@@ -11,7 +11,7 @@ namespace AgiSoft.Models {
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
-        
+
         public string Password { get; set; }
 
         [Required]
@@ -25,12 +25,13 @@ namespace AgiSoft.Models {
         [Display(Name = "Last Name: ")]
         public string LName { get; set; }
 
-        public bool IsLocked { get; set; }        
+        public bool IsLocked { get; set; }
     }
 
     public class AgiUser {
         // Fields
         private AgiSoftDb db = new AgiSoftDb();
+        private CueDb cue = new CueDb();
         private string userName = "";
         private string uEmail = "";
         private string uFname = "";
@@ -44,12 +45,14 @@ namespace AgiSoft.Models {
             uFname = Model.FName;
             uLname = Model.LName;
         }
+        public AgiUser() {
+
+        }
 
         // Commands
         public string AddUser(string creator) {
             UserProfile up = new UserProfile();
-            UserProfile c = (UserProfile)db.UserProfiles.Where(x => x.UserName == creator);
-            c.UserName = creator;
+            UserProfile c = db.UserProfiles.First(x => x.UserName == creator);
             string result = "";
 
             up.UserName = userName;
@@ -60,23 +63,42 @@ namespace AgiSoft.Models {
             up.IsActiveUser = false;
             up.SettingId = c.SettingId;
             up.ChangeDate = DateTime.Now;
-            
+
             try {
 
-                //db.UserProfiles.Add(up);
-                //db.SaveChanges();
+                db.UserProfiles.Add(up);
+                db.SaveChanges();
                 result = "success";
 
             } catch (Exception e) {
                 e.ToString();
-                
+
                 throw;
             }
 
             return result;
         }
 
+        public void DeleteUser(UserProfile up) {
+            Users u = cue.Users.First(f => f.UserName == up.UserName);
+            Membership m = cue.Membership.Find(u.UserId);
+            UserProfile t = db.UserProfiles.Find(up.UserId);
+            try {
+                
+                cue.Membership.Remove(m);
+                cue.Users.Remove(u);
+                cue.SaveChanges();
+                
+                db.UserProfiles.Remove(t);
+                db.SaveChanges();
+            } catch (Exception e) {
+
+                throw;
+            }
+        }
+
         // Queries
 
     }
+
 }

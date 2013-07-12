@@ -42,6 +42,9 @@ namespace AgiSoft.Controllers {
         public ActionResult Login(LoginModel model, string returnUrl) {
             using (var db = new CueDb()) {
                 if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe)) {
+                    if (model.Password == "temppass") {
+                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
+                    }
                     //if login successful, check if user has access to product
                     //get userId
                     var uid = db.Users.First(u=>u.UserName == model.UserName).UserId;
@@ -56,16 +59,6 @@ namespace AgiSoft.Controllers {
                         return RedirectToAction("Roles", "Admin");
                     }
 
-                    /*
-                    var uid = db.Users.Where(x => x.UserName == model.UserName).Select(u => u.UserId);
-                    var clid = db.Clients.Where(c => c.UserId == int.Parse(uid.ToString())).Select(i => i.ClientId);
-                    var pid = db.ClientProdRegs.Where(p => p.ClientId == int.Parse(clid.ToString())).Select(p => p.ProdId);
-                    // TODO: this does not work grrr
-
-                    if (pid.Equals(1)) {
-                        return RedirectToAction("Roles", "Admin");
-                    }
-                    */
                     return RedirectToLocal(returnUrl);
                 }
             }
@@ -138,6 +131,8 @@ namespace AgiSoft.Controllers {
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : "";
+            ViewBag.PassReset = message == ManageMessageId.SetPasswordSuccess ? "true" : "";
+            
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();

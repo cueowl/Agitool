@@ -46,28 +46,34 @@ namespace AgiSoft.Models {
         }
 
         // Commands
-        public bool AddUser() {
+        public string AddUser(string creator) {
             UserProfile up = new UserProfile();
+            UserProfile c = (UserProfile)db.UserProfiles.Where(x => x.UserName == creator);
+            c.UserName = creator;
+            string result = "";
+
             up.UserName = userName;
             up.FName = uFname;
             up.LName = uLname;
             up.Email = uEmail;
             up.IsLocked = locked;
             up.IsActiveUser = false;
-            up.SettingId = 1;
+            up.SettingId = c.SettingId;
             up.ChangeDate = DateTime.Now;
+            
             try {
 
-                db.UserProfiles.Add(up);
-                db.SaveChanges();
-
-                return true;
+                //db.UserProfiles.Add(up);
+                //db.SaveChanges();
+                result = "success";
 
             } catch (Exception e) {
                 e.ToString();
                 
                 throw;
             }
+
+            return result;
         }
 
         // Queries

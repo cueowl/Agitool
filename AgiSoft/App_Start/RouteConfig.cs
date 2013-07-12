@@ -11,6 +11,12 @@ namespace AgiSoft {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "AdminRole",
+                url: "Admin/Edit/{type}",
+                defaults: new { controller = "Admin", action = "RolesEdit", type = "group" }
+                );
+
+            routes.MapRoute(
                 name: "MemberHome",
                 url: "Home",
                 defaults: new { controller = "Home", action = "Member" }

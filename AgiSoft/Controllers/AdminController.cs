@@ -22,7 +22,7 @@ namespace AgiSoft.Controllers {
     public class AdminController : Controller {
         // Fields
         private AgiSoftDb db = new AgiSoftDb();
-        
+
 
         // GET: /Admin/
         public ActionResult Index() {
@@ -92,7 +92,7 @@ namespace AgiSoft.Controllers {
         }
 
         // GET: /Admin/RolesEdit
-        public ActionResult RolesEdit(int id) {
+        public ActionResult RolesEdit(int id, string type) {
             webRoles roles = db.Roles.Find(id);
             List<webRoles> rlist = null;
             RoleGroups groups = db.RoleGroups.Find(id);
@@ -101,47 +101,47 @@ namespace AgiSoft.Controllers {
             if (roles == null && groups == null) {
                 return HttpNotFound();
             }
-            
-            if (roles != null) {
+
+            if (type=="role") {
                 ViewBag.Type = "role";
                 groups = null;
             }
-            if (groups != null) {
+            if (type=="group") {
                 ViewBag.Type = "group";
                 rig = db.RolesInGroups.ToList();
                 rlist = db.Roles.ToList();
                 roles = null;
             }
 
-            return View(Tuple.Create(roles,groups,rig,rlist));
+            return View(Tuple.Create(roles, groups, rig, rlist));
         }
 
         // POST: /Admin/RolesEdit/5
         [HttpPost]
-        public ActionResult RolesEdit(webRoles roles,RoleGroups grp, RolesInGroups rg, string type) {
+        public ActionResult RolesEdit(Tuple<webRoles, RoleGroups, RolesInGroups> rlgrp, string type) {
             if (type == "role") {
                 if (ModelState.IsValid) {
-                    db.Entry(roles).State = EntityState.Modified;
+                    db.Entry(rlgrp.Item1).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Roles");
                 }
             }
             if (type == "grp") {
                 if (ModelState.IsValid) {
-                    db.Entry(grp).State = EntityState.Modified;
+                    db.Entry(rlgrp.Item2).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Roles");
                 }
             }
             if (type == "rg") {
                 if (ModelState.IsValid) {
-                    db.Entry(rg).State = EntityState.Modified;
+                    db.Entry(rlgrp.Item3).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Roles");
                 }
             }
 
-            return View(roles);
+            return View(rlgrp);
         }
 
         // GET: /Admin/RolesDelete
@@ -182,14 +182,16 @@ namespace AgiSoft.Controllers {
             if (ModelState.IsValid) {
                 // Attempt to register the user
                 try {
+                    string user = User.Identity.Name;
                     /*
                     model.Password = "temppass";
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
                     */
                     AgiUser u = new AgiUser(model);
-                    u.AddUser();
-
+                    
+                    string result = u.AddUser(user);
+                    
                     return RedirectToAction("Index", "Home");
                 } catch (MembershipCreateUserException e) {
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));

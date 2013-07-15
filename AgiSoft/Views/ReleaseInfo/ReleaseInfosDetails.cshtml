@@ -1,0 +1,119 @@
+﻿@model AgiSoft.Models.ReleaseInfo
+
+@{
+    ViewBag.Title = "ReleaseInfoDetails";
+}
+
+@if (ViewBag.Type == "releaseinfo")
+{   
+    <h2>ReleaseInfoDetails</h2>
+
+    <fieldset>
+        <legend>ReleaseInfo</legend>
+
+        <div class="display-label">
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.ReleaseYear)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.RelMonth)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.ReleaseYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.RelMonth)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="display-field">
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.RequirementsDT)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.DesignDT)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.RequirementsDT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.DesignDT)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="display-field">
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.BuildCompleteDT)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.SITStartDT)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.BuildCompleteDT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.SITStartDT)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="display-field">
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.SITEndDT)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.UATStartDT)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.SITEndDT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.UATStartDT)
+                    </td>
+                </tr>
+            </table>
+        </div>    
+        <div class="display-field">
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.UATEndDT)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.TurnDT)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.UATEndDT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TurnDT)
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Edit", "ReleaseInfosEdit", new { id = Model.ReleaseId }) |
+        @Html.ActionLink("Back to List", "ReleaseInfos")
+    </p>
+}

@@ -1,0 +1,84 @@
+﻿@Scripts.Render("~/bundles/knockout")
+
+@model AgiSoft.Models.Projects
+
+@{
+    ViewBag.Title = "Create Projects";
+}
+
+<h2>Create Projects</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Hidden("type", "project")
+    <fieldset>
+        <legend>Projects</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProjectNum)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProjectNum)
+            @Html.ValidationMessageFor(model => model.ProjectNum)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProjectName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProjectName)
+            @Html.ValidationMessageFor(model => model.ProjectName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ManagerId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.ManagerId, (SelectList)ViewBag.Managers)
+            @Html.ValidationMessageFor(model => model.ManagerId)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Status, (SelectList)ViewBag.Status)
+            @Html.ValidationMessageFor(model => model.Status)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TotalBudget)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TotalBudget)
+            @Html.ValidationMessageFor(model => model.TotalBudget)
+        </div>
+        <div class="editor-label">
+            <table>
+                <tr>
+                    <td>Start Date
+                    </td>
+                    <td>End Date</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="date" id="startdt" /></td>
+                    <td>
+                        <input type="date" id="enddt" /></td>
+                </tr>
+            </table>
+        </div>
+        <div>
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

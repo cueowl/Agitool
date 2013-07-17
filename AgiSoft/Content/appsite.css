@@ -159,6 +159,9 @@ footer {
 }
 
 /* CSS3 button  */
+#actBtn a:hover {
+    background-color:black;
+}
 button.getstarted {
 	color:#ffffff;
 	font-family:arial;

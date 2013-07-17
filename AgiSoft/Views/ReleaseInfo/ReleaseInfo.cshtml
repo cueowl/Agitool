@@ -23,14 +23,14 @@
     });
 </script>
 <script>
-function CreateRelease(numberToCalculate) {
-    $.ajax({
-        type: 'Get',
-        url: '/ReleaseInfo/ReleaseInfo',
-        data: { number: numberToCalculate},
-        success: function (data) { window.close(); }
-    });
-}
+    function CreateRelease(numberToCalculate) {
+        $.ajax({
+            type: 'Get',
+            url: '/ReleaseInfo/ReleaseInfo',
+            data: { number: numberToCalculate },
+            success: function (data) { window.close(); }
+        });
+    }
 </script>
 
 @using (Html.BeginForm())
@@ -38,14 +38,15 @@ function CreateRelease(numberToCalculate) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     @Html.Hidden("type", "releaseinfo")
+
     <fieldset>
         <legend>ReleaseInfos</legend>
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.ReleaseYear)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ReleaseYear)
+            @Html.EditorFor(model => Model.ReleaseYear)
             @Html.ValidationMessageFor(model => model.ReleaseYear)
         </div>
         <div class="editor-label">
@@ -63,7 +64,7 @@ function CreateRelease(numberToCalculate) {
                             @Html.LabelFor(model => model.RequirementsDT)
                         </div>
                         <div class="editor-field">
-                            <input type="date" title="reqdate" name="reqdate" id="reqdate" />
+                            <input type="text" title="reqdate" name="reqdate" value="@ViewBag.RequirementsDT" id="reqdate" />
                         </div>
                     </td>
                     <td>
@@ -71,7 +72,7 @@ function CreateRelease(numberToCalculate) {
                             @Html.LabelFor(model => model.DesignDT)
                         </div>
                         <div class="editor-field">
-                            <input type="date" id="designdate" title="designdate" name="designdate" />
+                            <input type="text" id="designdate" title="designdate" name="designdate" value="@ViewBag.DesignDT" />
                         </div>
                     </td>
                 </tr>
@@ -81,7 +82,7 @@ function CreateRelease(numberToCalculate) {
                             @Html.LabelFor(model => model.BuildCompleteDT)
                         </div>
                         <div class="editor-field">
-                            <input type="date" id="buildcompletedate" title="buildcompletedate" name="buildcompletedate" />
+                            <input type="text" id="buildcompletedate" title="buildcompletedate" name="buildcompletedate" value="@ViewBag.BuildCompleteDT" />
                         </div>
                     </td>
                     <td>
@@ -89,7 +90,7 @@ function CreateRelease(numberToCalculate) {
                             @Html.LabelFor(model => model.SITStartDT)
                         </div>
                         <div class="editor-field">
-                            <input type="date" id="sitstartdate" title="sitstartdate" name="sitstartdate" />
+                            <input type="text" id="sitstartdate" title="sitstartdate" name="sitstartdate" value="@ViewBag.SITStartDT" />
                         </div>
                     </td>
                 </tr>
@@ -99,7 +100,7 @@ function CreateRelease(numberToCalculate) {
                             @Html.LabelFor(model => model.SITEndDT)
                         </div>
                         <div class="editor-field">
-                            <input type="date" id="sitenddate" title="sitenddate" name="sitenddate" />
+                            <input type="text" id="sitenddate" title="sitenddate" name="sitenddate" value="@ViewBag.SITEndDT" />
                         </div>
                     </td>
                     <td>
@@ -107,7 +108,7 @@ function CreateRelease(numberToCalculate) {
                             @Html.LabelFor(model => model.UATStartDT)
                         </div>
                         <div class="editor-field">
-                            <input type="date" id="uatstartdate" title="uatstartdate" name="uatstartdate" />
+                            <input type="text" id="uatstartdate" title="uatstartdate" name="uatstartdate" value="@ViewBag.UATStartDT" />
                         </div>
                     </td>
                 </tr>
@@ -117,7 +118,7 @@ function CreateRelease(numberToCalculate) {
                             @Html.LabelFor(model => model.UATEndDT)
                         </div>
                         <div class="editor-field">
-                            <input type="date" id="uatenddate" title="uatenddate" name="uatenddate" />
+                            <input type="text" id="uatenddate" title="uatenddate" name="uatenddate" value="@ViewBag.UATEndDT" />
                         </div>
                     </td>
                     <td>
@@ -125,7 +126,7 @@ function CreateRelease(numberToCalculate) {
                             @Html.LabelFor(model => model.TurnDT)
                         </div>
                         <div class="editor-field">
-                            <input type="date" id="turndate" title="turndate" name="turndate" />
+                            <input type="text" id="turndate" title="turndate" name="turndate" value="@ViewBag.TurnDT" />
                         </div>
                     </td>
                 </tr>

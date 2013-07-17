@@ -31,7 +31,7 @@
                         <td>
                             @Html.ActionLink("Edit Projects", "ProjecsEdit", new { id = item.ProjectId }) |
                         @Html.ActionLink("Project Details", "ProjectsDetails", new { id = item.ProjectId }) |
-                        @Html.ActionLink("Delete Project", "Delete", new { id = item.ProjectId })
+                        @Html.ActionLink("Delete Project", "Delete", new { id = item.ProjectId })|
                             @Html.ActionLink("Add ReleaseDates", "../ReleaseInfo/ReleaseInfo", new { id = item.ProjectId })
                         </td>
                     </tr>

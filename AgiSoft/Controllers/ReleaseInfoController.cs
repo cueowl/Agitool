@@ -20,9 +20,32 @@ namespace AgiSoft.Controllers
             return View();
         }
 
-        public ActionResult ReleaseInfo()
+        public ActionResult ReleaseInfo(int id = 0)
         {
-            return View();
+            ReleaseInfo model = new Models.ReleaseInfo();
+            var existrelease = (from ReleaseInfo e1 in db.ReleaseInfo
+                                join ProjRelInfo e2 in db.ProjRelInfo on e1.ReleaseId equals e2.ReleaseId into temp
+                                from e2 in temp.DefaultIfEmpty()
+                                where e2.ProjectId == id
+                                select new { e1.BuildCompleteDT, e1.ReleaseId, e1.ReleaseYear, e1.RelMonth, e1.DesignDT, e1.RequirementsDT, e1.SITEndDT, e1.SITStartDT, e1.TurnDT, e1.UATEndDT, e1.UATStartDT }).ToList();
+
+            ViewBag.ReleaseYear = existrelease[0].ReleaseYear;
+            ViewBag.BuildCompleteDT = existrelease[0].BuildCompleteDT;
+            ViewBag.DesignDT = existrelease[0].DesignDT;
+            ViewBag.ReleaseId = existrelease[0].ReleaseId;
+            ViewBag.RelMonth = existrelease[0].RelMonth;
+            ViewBag.RequirementsDT = existrelease[0].RequirementsDT;
+            ViewBag.SITEndDT = existrelease[0].SITEndDT;
+            ViewBag.SITStartDT = existrelease[0].SITStartDT;
+            ViewBag.TurnDT = existrelease[0].TurnDT;
+            ViewBag.UATEndDT = existrelease[0].UATEndDT;
+            ViewBag.UATStartDT = existrelease[0].UATStartDT;
+            ViewBag.ReleaseInfo = existrelease;
+
+            model.ReleaseYear = existrelease[0].ReleaseYear;
+            model.RelMonth = existrelease[0].RelMonth;
+
+            return View(model);
         }
 
         // POST: /Admin/RolesCreate/5
@@ -68,11 +91,11 @@ namespace AgiSoft.Controllers
                 db.ReleaseInfo.Add(releaseinfos);
                 db.SaveChanges();
                 i = 1;
-                
-                                
+
+
                 var releaseid = (from e in db.ReleaseInfo
-                             orderby e.ReleaseId descending
-                             select e).ToList();
+                                 orderby e.ReleaseId descending
+                                 select e).ToList();
 
                 ProjRelInfo model = new ProjRelInfo();
                 model.ReleaseId = releaseid[0].ReleaseId;

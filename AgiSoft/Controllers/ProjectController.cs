@@ -50,30 +50,30 @@ namespace AgiSoft.Controllers
             var item = from p in db.UserProfiles
                        select p;
 
-            List<User> managers = new List<User>();
+            List<UserProfile> managers = new List<UserProfile>();
             foreach (var item1 in item)
             {
-                User user = new User() { UserId = item1.UserId, UserName = item1.UserName };
+                UserProfile user = new UserProfile() { UserId = item1.UserId, UserName = item1.UserName };
                 managers.Add(user);
             }
 
-            ViewBag.ManagerId = new SelectList(managers, "Id", "UserName", model.ManagerId);
+            ViewBag.ManagerId = new SelectList(managers, "UserId", "UserName", model.ManagerId);
 
             var statusid= (from CodeSet pt in db.CodeSet
              join CodeSetType p in db.CodeSetType on pt.CodeSetTypeId equals p.CodeSetTypeId into temp
              from p in temp.DefaultIfEmpty()
              where p.CodeSetTypeDesc == "ProjectType"
-             select new { p.CodeSetTypeDesc, pt.CodeSetId }).ToList();
+             select new { pt.CodeSetDesc, pt.CodeSetId }).ToList();
 
             List<CodeSet> codeset = new List<CodeSet>();
             foreach (var item2 in statusid)
             {
-                CodeSet codeset1 = new CodeSet() { CodeSetId = item2.CodeSetId, CodeSetDesc = item2.CodeSetId.ToString() };
+                CodeSet codeset1 = new CodeSet() { CodeSetId = item2.CodeSetId, CodeSetDesc = item2.CodeSetDesc.ToString() };
                 codeset.Add(codeset1);
             }
 
-            ViewBag.Status = new SelectList(codeset, "CodeSetId", "CodeSetId", model.Status);
-            ViewBag.ManagerId = new SelectList(managers, "Id", "UserName", model.ManagerId);
+            ViewBag.Status = new SelectList(codeset, "CodeSetId", "CodeSetDesc", model.Status);
+            ViewBag.ManagerId = new SelectList(managers, "UserId", "UserName", model.ManagerId);
             
             return View(model);
         }
@@ -85,6 +85,7 @@ namespace AgiSoft.Controllers
         {
             if (ModelState.IsValid)
             {
+                project.SettingId = 0;
                 db.Projects.Add(project);
                 db.SaveChanges();
 

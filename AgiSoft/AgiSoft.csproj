@@ -397,6 +397,8 @@
     <Content Include="Views\Team\TeamsDetails.cshtml" />
     <Content Include="Views\Team\TeamsEdit.cshtml" />
     <Content Include="Views\Team\Delete.cshtml" />
+    <Content Include="Views\ReleaseInfo\ReleaseInfo.cshtml" />
+    <Content Include="Views\Sprint\Sprints.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

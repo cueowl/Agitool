@@ -1,6 +1,4 @@
-﻿@Scripts.Render("~/bundles/knockout")
-
-@model AgiSoft.Models.ReleaseInfo
+﻿@model AgiSoft.Models.ReleaseInfo
 
 @{
     ViewBag.Title = "Create ReleaseInfo";
@@ -17,15 +15,23 @@
 <script type="text/javascript">
     $(function () {
         var options = {
-            numberOfMonths: 2,
+            numberOfMonths: 1,
             changeYear: true,
             yearRange: "-2:+2"
         }
-        $("#txtDate").datepicker(options);
+        $("#txtDate,#reqdate,#designdate,#buildcompletedate").datepicker(options);
     });
 </script>
-
-<h2>Create ReleaseInfos</h2>
+<script>
+function CreateRelease(numberToCalculate) {
+    $.ajax({
+        type: 'Get',
+        url: '/ReleaseInfo/ReleaseInfo',
+        data: { number: numberToCalculate},
+        success: function (data) { window.close(); }
+    });
+}
+</script>
 
 @using (Html.BeginForm())
 {
@@ -34,7 +40,7 @@
     @Html.Hidden("type", "releaseinfo")
     <fieldset>
         <legend>ReleaseInfos</legend>
-
+        
         <div class="editor-label">
             @Html.LabelFor(model => model.ReleaseYear)
         </div>
@@ -75,7 +81,7 @@
                             @Html.LabelFor(model => model.BuildCompleteDT)
                         </div>
                         <div class="editor-field">
-                            <input id="txtDate" type="text" />
+                            <input type="date" id="buildcompletedate" title="buildcompletedate" name="buildcompletedate" />
                         </div>
                     </td>
                     <td>
@@ -126,16 +132,7 @@
             </table>
         </div>
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Create" onclick="CreateRelease(9);" />
         </p>
     </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }

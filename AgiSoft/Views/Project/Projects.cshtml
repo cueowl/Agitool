@@ -1,5 +1,43 @@
-﻿@{
+﻿@model List<AgiSoft.Models.Projects>
+
+@{
     ViewBag.Title = "Projects";
 }
 
-<h2>Projects</h2>
+<h2>Teams</h2>
+
+<p>
+    @Html.ActionLink("Create Project", "ProjectsCreate")
+</p>
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 50%;">
+            <table>
+                <tr>
+                    <th>Project Num:
+                    </th>
+                    <th>Project Name:</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(rName => item.ProjectNum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(rName => item.ProjectName)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit Projects", "ProjecsEdit", new { id = item.ProjectId }) |
+                        @Html.ActionLink("Project Details", "ProjectsDetails", new { id = item.ProjectId }) |
+                        @Html.ActionLink("Delete Project", "Delete", new { id = item.ProjectId })
+                            @Html.ActionLink("Add ReleaseDates", "../ReleaseInfo/ReleaseInfo", new { id = item.ProjectId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </td>
+    </tr>
+</table>

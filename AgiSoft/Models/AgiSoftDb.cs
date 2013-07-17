@@ -177,7 +177,7 @@ namespace AgiSoft.Models {
         [ForeignKey("CodeSet")]
         public int Status { get; set; }
 
-        public double TotalBudget { get; set; }
+        public decimal TotalBudget { get; set; }
 
         [ForeignKey("Settings")]
         public int SettingId { get; set; }

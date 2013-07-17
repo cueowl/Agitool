@@ -1,0 +1,38 @@
+﻿@model List<AgiSoft.Models.Sprints>
+
+@{
+    ViewBag.Title = "Sprints";
+}
+
+<h2>Sprints</h2>
+
+<p>
+    @Html.ActionLink("Create Sprint", "SprintsCreate")
+</p>
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 50%;">
+            <table>
+                <tr>
+                    <th>Sprint Names:
+                    </th>                    
+                </tr>               
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(rName => item.SprintNum)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit Sprints", "SprintsEdit", new { id = item.SprintId }) |
+                        @Html.ActionLink("Sprint Details", "SprintsDetails", new { id = item.SprintId }) |
+                        @Html.ActionLink("Delete Sprint", "Delete", new { id = item.SprintId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </td>
+    </tr>
+</table>

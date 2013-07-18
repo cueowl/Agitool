@@ -64,6 +64,64 @@ namespace AgiSoft.Controllers
             return View();
         }
 
+        public ActionResult MajorFeature()
+        {
+            MajorFeature model = new Models.MajorFeature();
+
+            var teambind = from p in db.Teams
+                           select p;
+
+            List<Teams> teamname = new List<Teams>();
+
+            foreach (var item1 in teambind)
+            {
+                Teams team = new Teams() { TeamId = item1.TeamId, TeamName = item1.TeamName };
+                teamname.Add(team);
+            }
+
+            ViewBag.teamid = new SelectList(teamname, "TeamId", "TeamName", model.TeamId);
+
+            var projectbind = from p in db.Projects
+                              select p;
+
+            List<Projects> projectname = new List<Projects>();
+
+            foreach (var item1 in projectbind)
+            {
+                Projects project = new Projects() { ProjectId = item1.ProjectId, ProjectNum = item1.ProjectNum };
+                projectname.Add(project);
+            }
+
+            ViewBag.projectid = new SelectList(projectname, "ProjectId", "ProjectNum", model.ProjectId);
+
+            return View(model);
+        }
+
+        // GET: /Sprint/SprintCreate
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MajorFeature(MajorFeature majorfeature)
+        {
+            if (ModelState.IsValid)
+            {
+                db.MajorFeature.Add(majorfeature);
+                db.SaveChanges();
+
+                var teambind = (from p in db.MajorFeature
+                           select p.MFId).Max();
+
+                RFE rfe=new RFE();
+                rfe.MFId=teambind;
+                rfe.ProjectId=majorfeature.ProjectId;
+                rfe.TeamId=majorfeature.TeamId;
+                db.RFE.Add(rfe);
+                db.SaveChanges();
+
+                return RedirectToAction("../Project/Projects");
+            }
+            return View(majorfeature);
+        }
+
         // GET: /Sprint/SprintCreate
         public ActionResult SprintCreate()
         {
@@ -73,7 +131,7 @@ namespace AgiSoft.Controllers
                            select p;
 
             List<Teams> teamname = new List<Teams>();
-                        
+
             foreach (var item1 in teambind)
             {
                 Teams team = new Teams() { TeamId = item1.TeamId, TeamName = item1.TeamName };

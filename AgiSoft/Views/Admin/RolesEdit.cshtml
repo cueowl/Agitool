@@ -22,7 +22,7 @@
                     $(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo(this);
                 }
             });
-        
+
         $('#rContain').droppable(
             {
                 stack: '#dragRole div',
@@ -45,7 +45,7 @@
         <fieldset>
             <legend>webpages_Roles</legend>
 
-            @Html.HiddenFor(m => m.Item1.RoleName)
+            @Html.HiddenFor(m => m.Item1.RoleId)
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.Item1.RoleName)
@@ -72,9 +72,11 @@
             @Html.Hidden("type","grp")
             <fieldset>
                 <legend>Role Groups</legend>
-                <input data-val="true" data-val-number="The field RoleGroupId must be a number." data-val-required="The RoleGroupId field is required."                     id="RoleGroupId" name="RoleGroupId" type="hidden" value="@Model.Item2.RoleGroupId" />
+                <input data-val="true" data-val-number="The field RoleGroupId must be a number." data-val-required="The RoleGroupId field is required." 
+                    id="RoleGroupId" name="RoleGroupId" type="hidden" value="@Model.Item2.RoleGroupId" />
+
                 <div class="editor-label">
-                    @Html.LabelFor(m => m.Item2.GroupName)
+                    @Html.LabelFor(m => m.Item2.RoleGroupId)
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(m => m.Item2.GroupName)
@@ -109,13 +111,13 @@
                          <table style="width:300px;">
                              <tr>
                                  <th>
-                                     @Html.LabelFor(l => l.Item2.GroupName)
+                                     @Html.LabelFor(l => l.Item2.RoleGroupId)
                                  </th>
                                  <th>
                                      <label>Roles in Group</label>
                                  </th>
                              </tr>
-                             <tr style="vertical-align:text-top;">
+                             <tr style="vertical-align:top;">
                                   <td style="text-align:center;">@Html.DisplayFor(d => d.Item2.GroupName)</td>
                                    <td>
                                        <div id="rContain">

@@ -24,9 +24,8 @@ using AgiSoft.Models;
 namespace AgiSoft.Controllers {
     [Authorize]
     public class AccountController : Controller {
-        //
-        // GET: /Account/Login
 
+        // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl) {
             if (User.Identity.IsAuthenticated) {
@@ -36,14 +35,25 @@ namespace AgiSoft.Controllers {
             return View();
         }
 
-        //
         // POST: /Account/Login
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl) {
+
+            if (!WebSecurity.IsConfirmed(model.UserName)) {
+                return RedirectToAction("RegisterConfirmation");
+            }
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe)) {
+
+                int prod = CheckProduct(model.UserName);
+
+                // Check if product ID is 3 (meaning AgiSoft)
+                if (prod == 3) {
+                    // Do something
+                    return RedirectToAction("Roles", "Admin");
+                }
+
                 return RedirectToLocal(returnUrl);
             }
 
@@ -52,9 +62,7 @@ namespace AgiSoft.Controllers {
             return View(model);
         }
 
-        //
         // POST: /Account/LogOff
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff() {
@@ -63,30 +71,19 @@ namespace AgiSoft.Controllers {
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/Register
-
-        [AllowAnonymous]
+        // GET: /Account/Register  --- Registration not available to general public. Users are added by managers in account
         public ActionResult Register() {
             return View();
         }
 
-        //
         // POST: /Account/Register
-
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model) {
             if (ModelState.IsValid) {
                 // Attempt to register the user
                 try {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new {Email = model.Email,
-                                                                                          FName = model.FName,
-                                                                                          LName = model.LName,
-                                                                                          Mobile = model.Mobile,
-                                                                                          City = model.City,
-                                                                                          State = "",Country = ""});
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 } catch (MembershipCreateUserException e) {
@@ -98,9 +95,34 @@ namespace AgiSoft.Controllers {
             return View(model);
         }
 
-        //
-        // POST: /Account/Disassociate
+        // GET: /Account/RegisterConfirmation
+        [AllowAnonymous]
+        public ActionResult RegisterConfirmation(string user, string id) {
+            if (WebSecurity.ConfirmAccount(user, id)) {
+                CueDb db = new CueDb();
+                int uid = db.Users.First(x => x.UserName == user).UserId;
+                AgiSoft.Models.Membership m = db.Membership.Find(uid);
+                m.ConfirmationDate = DateTime.Now;
+                db.Entry(m).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
 
+                return RedirectToAction("ConfSuccess");
+            }
+
+            return RedirectToAction("ConfFail");
+        }
+
+        [AllowAnonymous]
+        public ActionResult ConfSuccess() {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult ConfFail() {
+            return View();
+        }
+
+        // POST: /Account/Disassociate
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Disassociate(string provider, string providerUserId) {
@@ -123,23 +145,21 @@ namespace AgiSoft.Controllers {
             return RedirectToAction("Manage", new { Message = message });
         }
 
-        //
         // GET: /Account/Manage
-
         public ActionResult Manage(ManageMessageId? message) {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : "";
+            ViewBag.PassReset = message == ManageMessageId.SetPasswordSuccess ? "true" : "";
+
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
         }
 
-        //
         // POST: /Account/Manage
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Manage(LocalPasswordModel model) {
@@ -186,6 +206,7 @@ namespace AgiSoft.Controllers {
             return View(model);
         }
 
+        #region External
         //
         // POST: /Account/ExternalLogin
 
@@ -296,6 +317,7 @@ namespace AgiSoft.Controllers {
             ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
+        #endregion
 
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl) {
@@ -305,6 +327,22 @@ namespace AgiSoft.Controllers {
             else {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        private int CheckProduct(string userName) {
+            int prod = 0;
+
+            using (var db = new CueDb()) {
+                //if login successful, check if user has access to product
+                //get userId
+                var uid = db.Users.First(u => u.UserName == userName).UserId;
+                //Get Client Id    
+                var cid = db.Clients.First(c => c.UserId == uid).ClientId;
+                // Get the Product Id
+                prod = db.ClientProdRegs.First(p => p.ClientId == cid).ProdId;
+            }
+
+            return prod;
         }
 
         public enum ManageMessageId {

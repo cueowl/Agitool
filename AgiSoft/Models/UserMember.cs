@@ -37,23 +37,10 @@ namespace AgiSoft.Models {
 
         public int SettingId { get; set; }
 
-        public DateTime ChangeDate { get; set; }
+        public DateTime? ChangeDate { get; set; }
     }
 
-    /* This is table for CueDb  */
-    [Table("User")]
-    public class User {
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
-
-        public string UserName { get; set; }
-
-        [ForeignKey("Client")]
-        public int ClientId { get; set; }
-
-        public virtual Client Client { get; set; }
-    }
+    
 
     public class webpages_Membership {
         [Key,ForeignKey("UserProfile")]

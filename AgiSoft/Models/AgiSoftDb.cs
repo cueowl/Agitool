@@ -49,6 +49,14 @@ namespace AgiSoft.Models {
         public DbSet<UsersOnTeam> UsersOnTeam { get; set; }
         public DbSet<webRoles> Roles { get; set; }
         public DbSet<webpages_Membership> Membership { get; set; }
+
+        public DbSet<ClientProdReg> ClientProdRegs { get; set; }
+
+        public DbSet<Clients> Clients { get; set; }
+
+        public DbSet<Products> Products { get; set; }
+
+        public DbSet<Registrations> Registrations { get; set; }
     }
 
     public class Epics {
@@ -177,7 +185,7 @@ namespace AgiSoft.Models {
         [ForeignKey("CodeSet")]
         public int Status { get; set; }
 
-        public decimal TotalBudget { get; set; }
+        public double TotalBudget { get; set; }
 
         [ForeignKey("Settings")]
         public int SettingId { get; set; }
@@ -389,10 +397,6 @@ namespace AgiSoft.Models {
         public int RoleId { get; set; }
 
         public string RoleName { get; set; }
-        
-//        [ForeignKey("Settings")]
-        public int SettingId { get; set; }
-
-        //public virtual Settings Settings { get; set; }
+        public string RoleDesc { get; set; }
     }
 }

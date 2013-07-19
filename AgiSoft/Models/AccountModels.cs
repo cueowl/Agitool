@@ -44,6 +44,19 @@ namespace AgiSoft.Models {
         public string ConfirmPassword { get; set; }
     }
 
+    public class ResetPasswordModel {
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "New password")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+    }
+
     public class LoginModel {
         [Required]
         [Display(Name = "User name")]
@@ -84,19 +97,6 @@ namespace AgiSoft.Models {
 
         [Display(Name = "Last Name: ")]
         public string LName { get; set; }
-
-        [Display(Name = "Cell Number: ")]
-        [DataType(DataType.PhoneNumber)]
-        public string Mobile { get; set; }
-
-        [Display(Name = "City: ")]
-        public string City { get; set; }
-
-        [Display(Name = "State: ")]
-        public string State { get; set; }
-
-        [Display(Name = "Country: ")]
-        public string Country { get; set; }
 
         public bool IsLocked { get; set; }
     }

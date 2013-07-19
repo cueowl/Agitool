@@ -19,7 +19,7 @@ namespace AgiSoft.Models {
     public class CueDb : DbContext {
         public CueDb() : base("name=CueConnect") {
         }
-        public DbSet<Client> Clients { get; set; }
+        public DbSet<Clients> Clients { get; set; }
         public DbSet<CodeSet> CodeSets { get; set; }
         public DbSet<CodeSetType> CodeSetTypes { get; set; }
         public DbSet<PasswordHistory> PasswordHistories { get; set; }
@@ -28,13 +28,43 @@ namespace AgiSoft.Models {
         public DbSet<Products> Products { get; set; }
         public DbSet<Registrations> Registrations { get; set; }
         public DbSet<ClientProdReg> ClientProdRegs { get; set; }
-        public DbSet<webpages_Membership> Membership { get; set; }
+        public DbSet<Membership> Membership { get; set; }
+        public DbSet<Users> Users { get; set; }
     }
 
-    public class Client {
-        public Client() {
+    /* This is table for CueDb  */
+    [Table("User")]
+    public class Users {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int UserId { get; set; }
+
+        public string UserName { get; set; }
+    }
+
+    [Table("webpages_Membership")]
+    public class Membership {
+        [Key, ForeignKey("Users")]
+        public int UserId { get; set; }
+
+        public DateTime CreateDate { get; set; }
+        public string ConfirmationToken { get; set; }
+        public bool IsConfirmed { get; set; }
+        public DateTime? LastPasswordFailureDate { get; set; }
+        public int PasswordFailuresSinceLastSuccess { get; set; }
+        public string Password { get; set; }
+        public DateTime? PasswordChangedDate { get; set; }
+        public string PasswordSalt { get; set; }
+        public string PasswordVerificationToken { get; set; }
+        public DateTime? PasswordVerificationTokenExpirationDate { get; set; }
+        public DateTime? ConfirmationDate { get; set; }
+
+        public virtual Users Users { get; set; }
+    }
+
+    public class Clients {
+        public Clients() {
             this.ClientProdRegs = new List<ClientProdReg>();
-            this.Users = new List<User>();
         }
 
         [Key]
@@ -68,8 +98,12 @@ namespace AgiSoft.Models {
 
         public DateTime JoinDate { get; set; }
 
+        [Required]
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+
+        public virtual Users User { get; set; }
         public virtual ICollection<ClientProdReg> ClientProdRegs { get; set; }
-        public virtual ICollection<User> Users { get; set; }
     }
 
     public class Products {
@@ -112,7 +146,7 @@ namespace AgiSoft.Models {
         [Column(Order = 3)]
         public int RegId { get; set; }
 
-        public virtual Client Client { get; set; }
+        public virtual Clients Client { get; set; }
         public virtual Products Products { get; set; }
         public virtual Registrations Registrations { get; set; }
     }

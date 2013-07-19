@@ -28,7 +28,7 @@
                         @Html.DisplayFor(rName => item.RoleName)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit Roles", "RolesEdit", new { id=item.RoleId }) |
+                        @Html.ActionLink("Edit Roles", "RolesEdit", new { id=item.RoleId,type="role" }) |
                         @Html.ActionLink("Role Details", "RolesDetails", new { id=item.RoleId }) |
                         @Html.ActionLink("Delete Role", "RolesDelete", new { id=item.RoleId })
                     </td>
@@ -52,7 +52,7 @@
                         @Html.DisplayFor(rGroup => item2.GroupName)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit Group", "RolesEdit", new { id=item2.RoleGroupId }) |
+                        @Html.ActionLink("Edit Group", "RolesEdit", new { id=item2.RoleGroupId,type="group" }) |
                         @Html.ActionLink("Group Details", "RolesDetails", new { id=item2.RoleGroupId }) |
                         @Html.ActionLink("Delete Group", "RolesDelete", new { id=item2.RoleGroupId })
                     </td>
@@ -79,7 +79,7 @@
                         @Html.DisplayFor(group => item3.RoleGroups) - @Html.DisplayFor(role => item3.Roles)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "RolesEdit", new { id=item3.RoleGroupId }) |
+                        @Html.ActionLink("Edit", "RolesEdit", new {id=item3.RoleGroupId, type="group"}) |
                         @Html.ActionLink("Details", "RolesDetails", new { id=item3.RoleGroupId }) |
                         @Html.ActionLink("Delete", "RolesDelete", new { id=item3.RoleGroupId })
                     </td>

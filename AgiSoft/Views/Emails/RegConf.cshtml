@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+
+To: @ViewBag.To
+From: doNotReply@AgiSoft.com
+Subject: Welcome AgiSoft User
+
+Hello @ViewBag.FName,
+
+You have been added as a User to the AgiSoft Management tool by @ViewBag.ByUser.
+
+Your Username: @ViewBag.UserName
+Temp Pass: @ViewBag.Pass
+
+You must complete the AgiSoft registration process, by clicking on the following link:
+http://localhost:59712/Account/RegisterConfirmation?user=@ViewBag.UserName&id=@ViewBag.ConfirmationToken
+
+Thank you,
+
+AgiSoft Support Team

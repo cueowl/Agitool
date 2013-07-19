@@ -1,0 +1,42 @@
+﻿@model List<AgiSoft.Models.ReleaseInfo>
+
+@{
+    ViewBag.Title = "ReleaseInfo";
+}
+
+<h2>ReleaseInfo</h2>
+
+<p>
+    @Html.ActionLink("Create ReleaseInfo", "ReleaseInfosCreate")
+</p>
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 50%;">
+            <table>
+                <tr>
+                    <th>Release Name:
+                    </th>
+                    <th>Release Year:</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(rName => item.RelMonth)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(rName => item.ReleaseYear)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit ReleaseInfo", "ReleaseInfosEdit", new { id = item.ReleaseId }) |
+                        @Html.ActionLink("ReleaseInfo Details", "ReleaseInfosDetails", new { id = item.ReleaseId }) |
+                        @Html.ActionLink("Delete ReleaseInfo", "ReleaseInfosDelete", new { id = item.ReleaseId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </td>
+    </tr>
+</table>

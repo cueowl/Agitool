@@ -1,0 +1,122 @@
+﻿@model AgiSoft.Models.ReleaseInfo
+
+@{
+    ViewBag.Title = "ReleaseInfosEdit";
+}
+
+@if(ViewBag.Type == "releaseinfo"){
+    <h2>TeamEdit</h2>
+
+    using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+        var requirementdt = Model.RequirementsDT;
+    
+    <fieldset>
+        <legend>Release Info</legend>
+
+        @Html.HiddenFor(m => m.ReleaseId)
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.ReleaseYear)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.ReleaseYear)
+            @Html.ValidationMessageFor(m => m.ReleaseYear)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.RelMonth)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.RelMonth)
+            @Html.ValidationMessageFor(m => m.RelMonth)
+        </div>
+        <div class="display-field">
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.RequirementsDT)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.DesignDT)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="date" value="@requirementdt" />
+                        @Html.EditorFor(model => model.RequirementsDT)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.DesignDT)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.BuildCompleteDT)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.SITStartDT)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.EditorFor(model => model.BuildCompleteDT)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.SITStartDT)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.SITEndDT)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.UATStartDT)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.EditorFor(model => model.SITEndDT)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.UATStartDT)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.UATEndDT)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.TurnDT)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.EditorFor(model => model.UATEndDT)
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.TurnDT)
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+    }
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

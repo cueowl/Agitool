@@ -24,7 +24,7 @@ using AgiSoft.Models;
 namespace AgiSoft.Controllers {
     [Authorize]
     public class AccountController : Controller {
-        
+
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl) {
@@ -40,27 +40,21 @@ namespace AgiSoft.Controllers {
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl) {
-            using (var db = new CueDb()) {
-                if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe)) {
-                    if (model.Password == "temppass") {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
-                    }
-                    //if login successful, check if user has access to product
-                    //get userId
-                    var uid = db.Users.First(u=>u.UserName == model.UserName).UserId;
-                    //Get Client Id    
-                    var cid = db.Clients.First(c => c.UserId == uid).ClientId;
-                    // Get the Product Id
-                    var prod = db.ClientProdRegs.First(p => p.ClientId == cid).ProdId;
 
-                    // Check if product ID is 3 (meaning AgiSoft)
-                    if (prod == 3) {
-                        // Do something
-                        return RedirectToAction("Roles", "Admin");
-                    }
+            if (!WebSecurity.IsConfirmed(model.UserName)) {
+                return RedirectToAction("RegisterConfirmation");
+            }
+            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe)) {
 
-                    return RedirectToLocal(returnUrl);
+                int prod = CheckProduct(model.UserName);
+
+                // Check if product ID is 3 (meaning AgiSoft)
+                if (prod == 3) {
+                    // Do something
+                    return RedirectToAction("Roles", "Admin");
                 }
+
+                return RedirectToLocal(returnUrl);
             }
 
             // If we got this far, something failed, redisplay form
@@ -101,6 +95,33 @@ namespace AgiSoft.Controllers {
             return View(model);
         }
 
+        // GET: /Account/RegisterConfirmation
+        [AllowAnonymous]
+        public ActionResult RegisterConfirmation(string user, string id) {
+            if (WebSecurity.ConfirmAccount(user, id)) {
+                CueDb db = new CueDb();
+                int uid = db.Users.First(x => x.UserName == user).UserId;
+                AgiSoft.Models.Membership m = db.Membership.Find(uid);
+                m.ConfirmationDate = DateTime.Now;
+                db.Entry(m).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("ConfSuccess");
+            }
+
+            return RedirectToAction("ConfFail");
+        }
+
+        [AllowAnonymous]
+        public ActionResult ConfSuccess() {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult ConfFail() {
+            return View();
+        }
+
         // POST: /Account/Disassociate
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -132,7 +153,7 @@ namespace AgiSoft.Controllers {
                 : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : "";
             ViewBag.PassReset = message == ManageMessageId.SetPasswordSuccess ? "true" : "";
-            
+
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
@@ -306,6 +327,22 @@ namespace AgiSoft.Controllers {
             else {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        private int CheckProduct(string userName) {
+            int prod = 0;
+
+            using (var db = new CueDb()) {
+                //if login successful, check if user has access to product
+                //get userId
+                var uid = db.Users.First(u => u.UserName == userName).UserId;
+                //Get Client Id    
+                var cid = db.Clients.First(c => c.UserId == uid).ClientId;
+                // Get the Product Id
+                prod = db.ClientProdRegs.First(p => p.ClientId == cid).ProdId;
+            }
+
+            return prod;
         }
 
         public enum ManageMessageId {

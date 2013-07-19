@@ -57,6 +57,7 @@ namespace AgiSoft.Models {
         public string PasswordSalt { get; set; }
         public string PasswordVerificationToken { get; set; }
         public DateTime? PasswordVerificationTokenExpirationDate { get; set; }
+        public DateTime? ConfirmationDate { get; set; }
 
         public virtual Users Users { get; set; }
     }

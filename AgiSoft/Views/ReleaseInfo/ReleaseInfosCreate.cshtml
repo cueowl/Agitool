@@ -1,0 +1,141 @@
+﻿@Scripts.Render("~/bundles/knockout")
+
+@model AgiSoft.Models.ReleaseInfo
+
+@{
+    ViewBag.Title = "Create ReleaseInfo";
+}
+
+<link type="text/css" rel="Stylesheet"
+    href="http://ajax.microsoft.com/ajax/jquery.ui/1.8.6/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript"
+    src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js">
+</script>
+<script type="text/javascript"
+    src="http://ajax.microsoft.com/ajax/jquery.ui/1.8.6/jquery-ui.min.js">
+</script>
+<script type="text/javascript">
+    $(function () {
+        var options = {
+            numberOfMonths: 2,
+            changeYear: true,
+            yearRange: "-2:+2"
+        }
+        $("#txtDate").datepicker(options);
+    });
+</script>
+
+<h2>Create ReleaseInfos</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Hidden("type", "releaseinfo")
+    <fieldset>
+        <legend>ReleaseInfos</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ReleaseYear)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ReleaseYear)
+            @Html.ValidationMessageFor(model => model.ReleaseYear)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RelMonth)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RelMonth)
+            @Html.ValidationMessageFor(model => model.RelMonth)
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.RequirementsDT)
+                        </div>
+                        <div class="editor-field">
+                            <input type="date" title="reqdate" name="reqdate" id="reqdate" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.DesignDT)
+                        </div>
+                        <div class="editor-field">
+                            <input type="date" id="designdate" title="designdate" name="designdate" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.BuildCompleteDT)
+                        </div>
+                        <div class="editor-field">
+                            <input id="txtDate" type="text" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.SITStartDT)
+                        </div>
+                        <div class="editor-field">
+                            <input type="date" id="sitstartdate" title="sitstartdate" name="sitstartdate" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.SITEndDT)
+                        </div>
+                        <div class="editor-field">
+                            <input type="date" id="sitenddate" title="sitenddate" name="sitenddate" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.UATStartDT)
+                        </div>
+                        <div class="editor-field">
+                            <input type="date" id="uatstartdate" title="uatstartdate" name="uatstartdate" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.UATEndDT)
+                        </div>
+                        <div class="editor-field">
+                            <input type="date" id="uatenddate" title="uatenddate" name="uatenddate" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.TurnDT)
+                        </div>
+                        <div class="editor-field">
+                            <input type="date" id="turndate" title="turndate" name="turndate" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -23,6 +23,12 @@ namespace AgiSoft {
                 );
 
             routes.MapRoute(
+                name: "RelInfoHome",
+                url: "ReleaseInfo",
+                defaults: new { controller = "ReleaseInfo", action = "ReleaseInfos" }
+                );
+
+            routes.MapRoute(
                 name: "AccountHome",
                 url: "Account",
                 defaults: new { controller = "Account", action = "Login" }

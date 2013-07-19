@@ -1,0 +1,26 @@
+﻿@model AgiSoft.Models.Team
+
+@{
+    ViewBag.Title = "TeamDetails";
+}
+
+@if (ViewBag.Type == "team") {
+    <p>Test results are team</p>
+    
+    <h2>TeamDetails</h2>
+
+    <fieldset>
+        <legend>Team</legend>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.TeamName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.TeamDesc)
+        </div>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Edit", "TeamsEdit", new { id=Model.TeamId }) |
+        @Html.ActionLink("Back to List", "Teams")
+    </p>
+}

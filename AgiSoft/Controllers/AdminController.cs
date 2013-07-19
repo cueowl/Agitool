@@ -17,6 +17,7 @@ using AgiSoft.Models;
 using System.Data;
 using WebMatrix.WebData;
 using System.Web.Security;
+using Postal;
 
 namespace AgiSoft.Controllers {
     public class AdminController : Controller {
@@ -184,8 +185,17 @@ namespace AgiSoft.Controllers {
                 try {
                     string user = User.Identity.Name;
                     
-                    model.Password = "temppass";
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    model.Password = System.Web.Security.Membership.GeneratePassword(8,2);
+                    string confToken = WebSecurity.CreateUserAndAccount(model.UserName, model.Password,null,true);
+
+                    dynamic email = new Email("RegConf");
+                    email.To = model.Email;
+                    email.FName = model.FName;
+                    email.ByUser = User.Identity.Name;
+                    email.UserName = model.UserName;
+                    email.Pass = model.Password;
+                    email.ConfirmationToken = confToken;
+                    email.Send();
                     
                     AgiUser u = new AgiUser(model);
                     

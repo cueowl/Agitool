@@ -1,0 +1,46 @@
+﻿@Scripts.Render("~/bundles/knockout")
+
+@model AgiSoft.Models.Teams
+
+@{
+    ViewBag.Title = "Create Teams";
+}
+
+<h2>Create Teams</h2>
+    
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Hidden("type","team")
+    <fieldset>
+        <legend>Teams</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TeamName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TeamName)
+            @Html.ValidationMessageFor(model => model.TeamName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TeamDesc)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TeamDesc)
+            @Html.ValidationMessageFor(model => model.TeamDesc)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

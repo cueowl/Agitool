@@ -198,6 +198,7 @@
     <Compile Include="Controllers\ReleaseInfoController.cs" />
     <Compile Include="Controllers\SprintController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TimeTrackController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -400,6 +401,7 @@
     <Content Include="Views\ReleaseInfo\ReleaseInfo.cshtml" />
     <Content Include="Views\Sprint\Sprints.cshtml" />
     <Content Include="Views\Sprint\MajorFeature.cshtml" />
+    <Content Include="Views\TimeTrack\AddHours.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,22 +24,26 @@ namespace AgiSoft.Controllers
         private AgiSoftDb db = new AgiSoftDb();
 
         // GET: /Team/
-        public ActionResult Index() {
+        public ActionResult Index()
+        {
             return View();
         }
 
         // GET: /Team/Member
-        public ActionResult Member() {
+        public ActionResult Member()
+        {
             return View();
         }
 
         // GET: /Team/TeamProject
-        public ActionResult TeamProject() {
+        public ActionResult TeamProject()
+        {
             return View();
         }
 
         // GET: /Team/Assignment
-        public ActionResult Assignment() {
+        public ActionResult Assignment()
+        {
             return View();
         }
 
@@ -52,7 +56,7 @@ namespace AgiSoft.Controllers
         // GET: /Admin/RolesDetails
         public ActionResult TeamsDetails(int id = 0)
         {
-            Teams teams = db.Teams.Find(id);            
+            Teams teams = db.Teams.Find(id);
 
             if (teams == null)
             {
@@ -60,7 +64,7 @@ namespace AgiSoft.Controllers
             }
             if (teams != null)
             {
-                ViewBag.Type = "team";                
+                ViewBag.Type = "team";
             }
 
             return View(teams);
@@ -89,11 +93,11 @@ namespace AgiSoft.Controllers
 
         // GET: /Admin/RolesEdit
         public ActionResult TeamsEdit(int id)
-        {            
+        {
             Teams teams = db.Teams.Find(id);
             teams.TeamCode = "";
             List<Teams> rlist = null;
-            
+
             if (teams == null)
             {
                 return HttpNotFound();
@@ -128,13 +132,13 @@ namespace AgiSoft.Controllers
             if (teams == null)
             {
                 return HttpNotFound();
-            }/*
+            }
             else
             {
-                db.Team.Remove(teams);
+                db.Teams.Remove(teams);
                 db.SaveChanges();
                 return RedirectToAction("Teams");
-            }*/
+            }
             return View(teams);
         }
 

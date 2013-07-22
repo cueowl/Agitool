@@ -149,9 +149,22 @@ header .content-wrapper {
     margin:0;
 }
 #rContain {
-    text-align:center; 
-    border:1px solid #000;
-    min-height:200px;
+    width: 100%;
+    height: 200px;
+    padding:0;
+    margin:0;
+}
+#rGrp {
+    width: 100%;
+    height: 200px;
+    padding:0;
+    margin:0;
+}
+#rContain li{
+    list-style: none;
+}
+#rGrp li{
+    list-style: none;
 }
 
 .rConHover {

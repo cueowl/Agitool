@@ -53,6 +53,9 @@ namespace AgiSoft.Models {
         public string AddUser(string creator) {
             UserProfile up = new UserProfile();
             UserProfile c = db.UserProfiles.First(x => x.UserName == creator);
+            Users cUser = cue.Users.First(x => x.UserName == creator);
+            Users noob = cue.Users.First(x => x.UserName == userName);
+            UsersWithClient uwc = new UsersWithClient();
             string result = "";
 
             up.UserName = userName;
@@ -64,10 +67,17 @@ namespace AgiSoft.Models {
             up.SettingId = c.SettingId;
             up.ChangeDate = DateTime.Now;
 
+            uwc.ClientId = cue.UsersWithClient.First(x => x.UserId == cUser.UserId).ClientId;
+            uwc.UserId = noob.UserId;
+
             try {
 
                 db.UserProfiles.Add(up);
                 db.SaveChanges();
+
+                cue.UsersWithClient.Add(uwc);
+                cue.SaveChanges();
+
                 result = "success";
 
             } catch (Exception e) {

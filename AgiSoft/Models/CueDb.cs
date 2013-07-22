@@ -30,6 +30,7 @@ namespace AgiSoft.Models {
         public DbSet<ClientProdReg> ClientProdRegs { get; set; }
         public DbSet<Membership> Membership { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<UsersWithClient> UsersWithClient { get; set; }
     }
 
     /* This is table for CueDb  */
@@ -58,6 +59,7 @@ namespace AgiSoft.Models {
         public string PasswordVerificationToken { get; set; }
         public DateTime? PasswordVerificationTokenExpirationDate { get; set; }
         public DateTime? ConfirmationDate { get; set; }
+        public bool IsFirstLogin { get; set; }
 
         public virtual Users Users { get; set; }
     }
@@ -104,6 +106,19 @@ namespace AgiSoft.Models {
 
         public virtual Users User { get; set; }
         public virtual ICollection<ClientProdReg> ClientProdRegs { get; set; }
+    }
+
+    public class UsersWithClient {
+        [Key, ForeignKey("Client")]
+        [Column(Order = 1)]
+        public int ClientId { get; set; }
+
+        [Key, ForeignKey("User")]
+        [Column(Order = 2)]
+        public int UserId { get; set; }
+
+        public virtual Clients Client { get; set; }
+        public virtual Users User { get; set; }
     }
 
     public class Products {

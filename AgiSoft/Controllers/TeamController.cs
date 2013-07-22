@@ -17,80 +17,61 @@ using System.Web;
 using System.Web.Mvc;
 using AgiSoft.Models;
 
-namespace AgiSoft.Controllers
-{
-    public class TeamController : Controller
-    {
+namespace AgiSoft.Controllers {
+    public class TeamController : Controller {
         private AgiSoftDb db = new AgiSoftDb();
 
         // GET: /Team/
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             return View();
         }
 
         // GET: /Team/Member
-        public ActionResult Member()
-        {
+        public ActionResult Member() {
             return View();
         }
 
         // GET: /Team/TeamProject
-        public ActionResult TeamProject()
-        {
+        public ActionResult TeamProject() {
             return View();
         }
 
         // GET: /Team/Assignment
-        public ActionResult Assignment()
-        {
+        public ActionResult Assignment() {
             return View();
         }
 
         // GET: /Team/Teams
-        public ActionResult Teams()
-        {
+        public ActionResult Teams() {
             return View(db.Teams.ToList());
         }
 
-        // GET: /Admin/RolesDetails
-        public ActionResult TeamsDetails(int id = 0)
-        {
-<<<<<<< HEAD
-            Teams teams = db.Teams.Find(id);            
-=======
+        // GET: /Team/TeamsDetails
+        public ActionResult TeamsDetails(int id = 0) {
             Teams teams = db.Teams.Find(id);
->>>>>>> Harshad
 
-            if (teams == null)
-            {
+            if (teams == null) {
                 return HttpNotFound();
             }
-            if (teams != null)
-            {
-<<<<<<< HEAD
-                ViewBag.Type = "team";                
-=======
+            if (teams != null) {
                 ViewBag.Type = "team";
->>>>>>> Harshad
             }
 
             return View(teams);
         }
 
-        // GET: /Admin/RolesCreate
-        public ActionResult TeamsCreate()
-        {
+        // GET: /Team/TeamsCreate
+        public ActionResult TeamsCreate() {
             return View();
         }
 
-        // POST: /Admin/RolesCreate/5
+        // POST: /Team/TeamsCreate/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TeamsCreate(Teams teams)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult TeamsCreate(Teams teams) {
+            if (ModelState.IsValid) {
+                var u = db.UserProfiles.First(x=>x.UserName == User.Identity.Name);
+                teams.SettingId = u.SettingId;
                 db.Teams.Add(teams);
                 db.SaveChanges();
 
@@ -99,40 +80,26 @@ namespace AgiSoft.Controllers
             return View(teams);
         }
 
-        // GET: /Admin/RolesEdit
-        public ActionResult TeamsEdit(int id)
-<<<<<<< HEAD
-        {            
+        // GET: /Team/TeamsEdit
+        public ActionResult TeamsEdit(int id) {
             Teams teams = db.Teams.Find(id);
             teams.TeamCode = "";
-            List<Teams> rlist = null;
-            
-=======
-        {
-            Teams teams = db.Teams.Find(id);
-            teams.TeamCode = "";
-            List<Teams> rlist = null;
 
->>>>>>> Harshad
-            if (teams == null)
-            {
+            if (teams == null) {
                 return HttpNotFound();
             }
 
-            if (teams != null)
-            {
+            if (teams != null) {
                 ViewBag.Type = "team";
             }
 
             return View(teams);
         }
 
-        // POST: /Admin/RolesEdit/5
+        // POST: /Team/TeamsEdit/5
         [HttpPost]
-        public ActionResult TeamsEdit(Teams teams)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult TeamsEdit(Teams teams) {
+            if (ModelState.IsValid) {
                 db.Entry(teams).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Teams");
@@ -141,38 +108,24 @@ namespace AgiSoft.Controllers
             return View(teams);
         }
 
-        // GET: /Admin/RolesDelete
-        public ActionResult Delete(int id = 0)
-        {
+        // GET: /Team/Delete
+        public ActionResult Delete(int id = 0) {
             Teams teams = db.Teams.Find(id);
-            if (teams == null)
-            {
+            if (teams == null) {
                 return HttpNotFound();
-<<<<<<< HEAD
-            }/*
-            else
-            {
-                db.Team.Remove(teams);
-                db.SaveChanges();
-                return RedirectToAction("Teams");
-            }*/
-=======
             }
-            else
-            {
+            else {
                 db.Teams.Remove(teams);
                 db.SaveChanges();
                 return RedirectToAction("Teams");
             }
->>>>>>> Harshad
             return View(teams);
         }
 
-        // POST: /Admin/RolesDelete/5
+        // POST: /Team/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
+        public ActionResult DeleteConfirmed(int id) {
             Teams teams = db.Teams.Find(id);
             db.Teams.Remove(teams);
             db.SaveChanges();

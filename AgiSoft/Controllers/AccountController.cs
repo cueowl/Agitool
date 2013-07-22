@@ -20,6 +20,7 @@ using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using AgiSoft.Models;
+using AgiSoft.Helpers;
 
 namespace AgiSoft.Controllers {
     [Authorize]
@@ -45,10 +46,17 @@ namespace AgiSoft.Controllers {
                 return RedirectToAction("RegisterConfirmation");
             }
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe)) {
+                using (var db = new CueDb()) {
+                    int uid = WebSecurity.GetUserId(model.UserName);
+
+                    if (db.Membership.First(x => x.UserId == uid).IsFirstLogin) {
+                        return RedirectToAction("Manage");
+                    }
+                }
 
                 int prod = CheckProduct(model.UserName);
 
-                // Check if product ID is 3 (meaning AgiSoft)
+                // Check if product ID is (AgiSoft)
                 if (prod == 3) {
                     // Do something
                     return RedirectToAction("Roles", "Admin");
@@ -80,10 +88,14 @@ namespace AgiSoft.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model) {
+            LoginHelper lh = new LoginHelper();
             if (ModelState.IsValid) {
                 // Attempt to register the user
                 try {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    
+                    lh.SetPasswordHistory(model.UserName, model.Password);
+
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 } catch (MembershipCreateUserException e) {
@@ -98,17 +110,18 @@ namespace AgiSoft.Controllers {
         // GET: /Account/RegisterConfirmation
         [AllowAnonymous]
         public ActionResult RegisterConfirmation(string user, string id) {
-            if (WebSecurity.ConfirmAccount(user, id)) {
-                CueDb db = new CueDb();
-                int uid = db.Users.First(x => x.UserName == user).UserId;
-                AgiSoft.Models.Membership m = db.Membership.Find(uid);
-                m.ConfirmationDate = DateTime.Now;
-                db.Entry(m).State = System.Data.EntityState.Modified;
-                db.SaveChanges();
+            if (!string.IsNullOrEmpty(id)) {
+                if (WebSecurity.ConfirmAccount(user, id)) {
+                    CueDb db = new CueDb();
+                    int uid = db.Users.First(x => x.UserName == user).UserId;
+                    AgiSoft.Models.Membership m = db.Membership.Find(uid);
+                    m.ConfirmationDate = DateTime.Now;
+                    db.Entry(m).State = System.Data.EntityState.Modified;
+                    db.SaveChanges();
 
-                return RedirectToAction("ConfSuccess");
+                    return RedirectToAction("ConfSuccess");
+                }
             }
-
             return RedirectToAction("ConfFail");
         }
 
@@ -147,12 +160,14 @@ namespace AgiSoft.Controllers {
 
         // GET: /Account/Manage
         public ActionResult Manage(ManageMessageId? message) {
+            var db = new CueDb();
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : "";
-            ViewBag.PassReset = message == ManageMessageId.SetPasswordSuccess ? "true" : "";
+            int uid = WebSecurity.GetUserId(User.Identity.Name);
+            ViewBag.PassReset = db.Membership.First(x => x.UserId == uid).IsFirstLogin;
 
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
@@ -162,16 +177,29 @@ namespace AgiSoft.Controllers {
         // POST: /Account/Manage
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Manage(LocalPasswordModel model) {
+        public ActionResult Manage(LocalPasswordModel model, string PassReset = "") {
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.HasLocalPassword = hasLocalAccount;
             ViewBag.ReturnUrl = Url.Action("Manage");
+            
+            
             if (hasLocalAccount) {
                 if (ModelState.IsValid) {
                     // ChangePassword will throw an exception rather than return false in certain failure scenarios.
                     bool changePasswordSucceeded;
                     try {
+                        LoginHelper lh = new LoginHelper();
                         changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
+                        lh.NewPassword(User.Identity.Name,model.NewPassword);
+
+                        using (var db = new CueDb()) {
+                            if (PassReset == "true") {
+                                AgiSoft.Models.Membership m = db.Membership.Find(WebSecurity.GetUserId(User.Identity.Name));
+                                m.IsFirstLogin = false;
+                                db.Entry(m).State = System.Data.EntityState.Modified;
+                                db.SaveChanges();
+                            }
+                        }
                     } catch (Exception) {
                         changePasswordSucceeded = false;
                     }
@@ -337,7 +365,7 @@ namespace AgiSoft.Controllers {
                 //get userId
                 var uid = db.Users.First(u => u.UserName == userName).UserId;
                 //Get Client Id    
-                var cid = db.Clients.First(c => c.UserId == uid).ClientId;
+                var cid = db.UsersWithClient.First(c => c.UserId == uid).ClientId;
                 // Get the Product Id
                 prod = db.ClientProdRegs.First(p => p.ClientId == cid).ProdId;
             }

@@ -14,6 +14,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AgiSoft.Models;
+using AgiSoft.Helpers;
 using System.Data;
 using WebMatrix.WebData;
 using System.Web.Security;
@@ -184,24 +185,33 @@ namespace AgiSoft.Controllers {
                 // Attempt to register the user
                 try {
                     string user = User.Identity.Name;
+                    LoginHelper lh = new LoginHelper();
                     
                     model.Password = System.Web.Security.Membership.GeneratePassword(8,2);
-                    string confToken = WebSecurity.CreateUserAndAccount(model.UserName, model.Password,null,true);
+                    string confToken = WebSecurity.CreateUserAndAccount(model.UserName, model.Password, null, true);
 
-                    dynamic email = new Email("RegConf");
-                    email.To = model.Email;
-                    email.FName = model.FName;
-                    email.ByUser = User.Identity.Name;
-                    email.UserName = model.UserName;
-                    email.Pass = model.Password;
-                    email.ConfirmationToken = confToken;
-                    email.Send();
+                    lh.SetPasswordHistory(model.UserName, model.Password);
+
+                    if (!string.IsNullOrEmpty(confToken)) {
+                        AgiUser u = new AgiUser(model);
+
+                        string result = u.AddUser(user);
+
+                        if (result == "success") {
+
+                            dynamic email = new Email("RegConf");
+                            email.To = model.Email;
+                            email.FName = model.FName;
+                            email.ByUser = User.Identity.Name;
+                            email.UserName = model.UserName;
+                            email.Pass = model.Password;
+                            email.ConfirmationToken = confToken;
+                            email.Send();
+
+                            return RedirectToAction("ToolUsers");
+                        }
+                    }
                     
-                    AgiUser u = new AgiUser(model);
-                    
-                    string result = u.AddUser(user);
-                    
-                    return RedirectToAction("ToolUsers");
                 } catch (MembershipCreateUserException e) {
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                 }

@@ -11,7 +11,7 @@
 
 <p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
 
-@if(ViewBag.PassReset == "true"){
+@if(ViewBag.PassReset){
     @Html.Partial("_SetPasswordPartial")
 }
 else if (ViewBag.HasLocalPassword){

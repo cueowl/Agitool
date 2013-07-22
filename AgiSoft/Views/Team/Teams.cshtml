@@ -17,11 +17,7 @@
                     <th>Team Names:
                     </th>
                     <th>Team Desc:</th>
-<<<<<<< HEAD
-                </tr>               
-=======
                 </tr>
->>>>>>> Harshad
 
                 @foreach (var item in Model)
                 {
@@ -34,13 +30,8 @@
                         </td>
                         <td>
                             @Html.ActionLink("Edit Teams", "TeamsEdit", new { id = item.TeamId }) |
-<<<<<<< HEAD
-                        @Html.ActionLink("Team Details", "TeamsDetails", new { id = item.TeamId }) |
-                        @Html.ActionLink("Delete Team", "Delete", new { id = item.TeamId })
-=======
                         @Html.ActionLink("Team Details", "TeamsDetails", new { id = item.TeamId }) |                        
                             @Html.ActionLink("Delete Team", "Delete", "Team", new { id = item.TeamId }, new { id = item.TeamId, onclick = "return confirm('Are you sure you wish to delete this?')" })
->>>>>>> Harshad
                         </td>
                     </tr>
                 }

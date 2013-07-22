@@ -24,22 +24,26 @@ namespace AgiSoft.Controllers
         private AgiSoftDb db = new AgiSoftDb();
 
         // GET: /Team/
-        public ActionResult Index() {
+        public ActionResult Index()
+        {
             return View();
         }
 
         // GET: /Team/Member
-        public ActionResult Member() {
+        public ActionResult Member()
+        {
             return View();
         }
 
         // GET: /Team/TeamProject
-        public ActionResult TeamProject() {
+        public ActionResult TeamProject()
+        {
             return View();
         }
 
         // GET: /Team/Assignment
-        public ActionResult Assignment() {
+        public ActionResult Assignment()
+        {
             return View();
         }
 
@@ -52,7 +56,11 @@ namespace AgiSoft.Controllers
         // GET: /Admin/RolesDetails
         public ActionResult TeamsDetails(int id = 0)
         {
+<<<<<<< HEAD
             Teams teams = db.Teams.Find(id);            
+=======
+            Teams teams = db.Teams.Find(id);
+>>>>>>> Harshad
 
             if (teams == null)
             {
@@ -60,7 +68,11 @@ namespace AgiSoft.Controllers
             }
             if (teams != null)
             {
+<<<<<<< HEAD
                 ViewBag.Type = "team";                
+=======
+                ViewBag.Type = "team";
+>>>>>>> Harshad
             }
 
             return View(teams);
@@ -89,11 +101,19 @@ namespace AgiSoft.Controllers
 
         // GET: /Admin/RolesEdit
         public ActionResult TeamsEdit(int id)
+<<<<<<< HEAD
         {            
             Teams teams = db.Teams.Find(id);
             teams.TeamCode = "";
             List<Teams> rlist = null;
             
+=======
+        {
+            Teams teams = db.Teams.Find(id);
+            teams.TeamCode = "";
+            List<Teams> rlist = null;
+
+>>>>>>> Harshad
             if (teams == null)
             {
                 return HttpNotFound();
@@ -128,6 +148,7 @@ namespace AgiSoft.Controllers
             if (teams == null)
             {
                 return HttpNotFound();
+<<<<<<< HEAD
             }/*
             else
             {
@@ -135,6 +156,15 @@ namespace AgiSoft.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Teams");
             }*/
+=======
+            }
+            else
+            {
+                db.Teams.Remove(teams);
+                db.SaveChanges();
+                return RedirectToAction("Teams");
+            }
+>>>>>>> Harshad
             return View(teams);
         }
 

@@ -29,6 +29,7 @@ namespace AgiSoft.Controllers
                                 where e2.ProjectId == id
                                 select new { e1.BuildCompleteDT, e1.ReleaseId, e1.ReleaseYear, e1.RelMonth, e1.DesignDT, e1.RequirementsDT, e1.SITEndDT, e1.SITStartDT, e1.TurnDT, e1.UATEndDT, e1.UATStartDT }).ToList();
 
+<<<<<<< HEAD
             ViewBag.ReleaseYear = existrelease[0].ReleaseYear;
             ViewBag.BuildCompleteDT = existrelease[0].BuildCompleteDT;
             ViewBag.DesignDT = existrelease[0].DesignDT;
@@ -44,6 +45,26 @@ namespace AgiSoft.Controllers
 
             model.ReleaseYear = existrelease[0].ReleaseYear;
             model.RelMonth = existrelease[0].RelMonth;
+=======
+            if (existrelease.Count > 0)
+            {
+                ViewBag.ReleaseYear = existrelease[0].ReleaseYear;
+                ViewBag.BuildCompleteDT = existrelease[0].BuildCompleteDT;
+                ViewBag.DesignDT = existrelease[0].DesignDT;
+                ViewBag.ReleaseId = existrelease[0].ReleaseId;
+                ViewBag.RelMonth = existrelease[0].RelMonth;
+                ViewBag.RequirementsDT = existrelease[0].RequirementsDT;
+                ViewBag.SITEndDT = existrelease[0].SITEndDT;
+                ViewBag.SITStartDT = existrelease[0].SITStartDT;
+                ViewBag.TurnDT = existrelease[0].TurnDT;
+                ViewBag.UATEndDT = existrelease[0].UATEndDT;
+                ViewBag.UATStartDT = existrelease[0].UATStartDT;
+                ViewBag.ReleaseInfo = existrelease;
+                model.ReleaseYear = existrelease[0].ReleaseYear;
+                model.RelMonth = existrelease[0].RelMonth;
+            }
+
+>>>>>>> Harshad
 
             return View(model);
         }

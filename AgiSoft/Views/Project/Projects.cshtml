@@ -4,7 +4,11 @@
     ViewBag.Title = "Projects";
 }
 
+<<<<<<< HEAD
 <h2>Teams</h2>
+=======
+<h2>Projects</h2>
+>>>>>>> Harshad
 
 <p>
     @Html.ActionLink("Create Project", "ProjectsCreate")
@@ -29,10 +33,18 @@
                             @Html.DisplayFor(rName => item.ProjectName)
                         </td>
                         <td>
+<<<<<<< HEAD
                             @Html.ActionLink("Edit Projects", "ProjecsEdit", new { id = item.ProjectId }) |
                         @Html.ActionLink("Project Details", "ProjectsDetails", new { id = item.ProjectId }) |
                         @Html.ActionLink("Delete Project", "Delete", new { id = item.ProjectId })|
                             @Html.ActionLink("Add ReleaseDates", "../ReleaseInfo/ReleaseInfo", new { id = item.ProjectId })
+=======
+                            @Html.ActionLink("Edit Projects", "ProjectsEdit", new { id = item.ProjectId }) |
+                        @Html.ActionLink("Project Details", "ProjectsDetails", new { id = item.ProjectId }) |                        
+                            @Html.ActionLink("Delete Project", "ProjectsDelete", "Project", new { id = item.ProjectId }, new { id = item.ProjectId, onclick = "return confirm('Are you sure you wish to delete this?')" })
+                            @Html.ActionLink("Add ReleaseDates", "../ReleaseInfo/ReleaseInfo", new { id = item.ProjectId })
+                            @Html.ActionLink("Add Teams", "../ReleaseInfo/ReleaseInfo", new { id = item.ProjectId })
+>>>>>>> Harshad
                         </td>
                     </tr>
                 }

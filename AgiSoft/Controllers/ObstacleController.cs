@@ -16,6 +16,7 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace AgiSoft.Controllers {
+    [Authorize]
     public class ObstacleController : Controller {
         
         // GET: /Obstacle/

@@ -49,11 +49,13 @@ namespace AgiSoft.Controllers {
         }
 
         // GET: /Product/Admin
+        [Authorize(Roles="CueOwl")]
         public ActionResult Admin() {
             return View(db.Products.ToList());
         }
 
         // GET: /Product/Details/5
+        [Authorize(Roles = "CueOwl")]
         public ActionResult Details(int id=0) {
             Products products = db.Products.Find(id);
             if (products == null) {
@@ -63,6 +65,7 @@ namespace AgiSoft.Controllers {
         }
 
         // GET: /Product/Create
+        [Authorize(Roles = "CueOwl")]
         public ActionResult Create() {
             
             return View();
@@ -71,6 +74,7 @@ namespace AgiSoft.Controllers {
         // POST: /Product/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "CueOwl")]
         public ActionResult Create(Products products) {
             if (ModelState.IsValid) {
                 db.Products.Add(products);
@@ -82,6 +86,7 @@ namespace AgiSoft.Controllers {
         }
 
         // GET: /Product/Edit/5
+        [Authorize(Roles = "CueOwl")]
         public ActionResult Edit(int id) {
             Products products = db.Products.Find(id);
             if (products == null) {
@@ -92,6 +97,7 @@ namespace AgiSoft.Controllers {
 
         // POST: /Product/Edit/5
         [HttpPost]
+        [Authorize(Roles = "CueOwl")]
         public ActionResult Edit(Products products) {
             if (ModelState.IsValid) {
                 db.Entry(products).State = EntityState.Modified;
@@ -102,6 +108,7 @@ namespace AgiSoft.Controllers {
         }
 
         // GET: /Product/Delete/5
+        [Authorize(Roles = "CueOwl")]
         public ActionResult Delete(int id=0) {
             Products products = db.Products.Find(id);
             if (products == null) {
@@ -113,6 +120,7 @@ namespace AgiSoft.Controllers {
         // POST: /Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "CueOwl")]
         public ActionResult DeleteConfirmed(int id) {
             Products products = db.Products.Find(id);
             db.Products.Remove(products);

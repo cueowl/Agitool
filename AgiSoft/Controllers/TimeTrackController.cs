@@ -5,26 +5,23 @@ using System.Web;
 using System.Web.Mvc;
 using AgiSoft.Models;
 
-namespace AgiSoft.Controllers
-{
-    public class TimeTrackController : Controller
-    {
+namespace AgiSoft.Controllers {
+    [Authorize]
+    public class TimeTrackController : Controller {
         private AgiSoftDb db = new AgiSoftDb();
 
         //
         // GET: /TimeTrack/
 
-        public ActionResult AddHours()
-        {
+        public ActionResult AddHours() {
             TimeTrack model = new TimeTrack();
 
             var userbind = (from p in db.UserProfiles
-                           select p).ToList();
+                            select p).ToList();
 
             List<UserProfile> username = new List<UserProfile>();
 
-            foreach (var item1 in userbind)
-            {
+            foreach (var item1 in userbind) {
                 UserProfile user = new UserProfile() { UserId = item1.UserId, UserName = item1.UserName };
                 username.Add(user);
             }
@@ -36,8 +33,7 @@ namespace AgiSoft.Controllers
 
             List<Projects> projectname = new List<Projects>();
 
-            foreach (var item1 in projectbind)
-            {
+            foreach (var item1 in projectbind) {
                 Projects project = new Projects() { ProjectId = item1.ProjectId, ProjectNum = item1.ProjectNum };
                 projectname.Add(project);
             }
@@ -49,10 +45,8 @@ namespace AgiSoft.Controllers
         // POST: /Project/ProjectsCreate/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddHours(TimeTrack timetrack)
-        {
-            if (ModelState.IsValid)
-            {                
+        public ActionResult AddHours(TimeTrack timetrack) {
+            if (ModelState.IsValid) {
                 db.TimeTrack.Add(timetrack);
                 db.SaveChanges();
 

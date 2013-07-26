@@ -19,6 +19,7 @@ using WebMatrix.WebData;
 using AgiSoft.Models;
 
 namespace AgiSoft.Controllers {
+    [Authorize]
     public class TeamController : Controller {
         private AgiSoftDb db = new AgiSoftDb();
 

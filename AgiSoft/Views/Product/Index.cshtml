@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Product";
     Layout = "~/Views/Shared/_AppLayout.cshtml";
 }
 <div class="topmain">
@@ -10,9 +10,8 @@
         <div class="lefttop">
             <h2>We make Agile <span style="color:#1680B6">Easier</span> so you can focus your <span style="color:#1680B6">Time</span> on <span style="color:#1680B6">Development</span></h2>
         </div>
-        <div style="padding: 75px 0 0 250px;">
-            @Html.ActionLink("SignUp","SignUp", "Product")
-            <button type="button" name="signup" value="" class="getstarted" onclick="@Url.Action("SignUp","Product")">Get Started Now</button>
+        <div id="actbtn" style="padding: 75px 0 0 250px;">
+            @Html.ActionButton("Get Started Now", "SignUp", "Product", "getstarted")
         </div>
     </div>
 </div>

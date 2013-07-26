@@ -7,12 +7,11 @@
 <h2>SignUp for AgiSoft --- OR --- Fill out request, Sales will call ??</h2>
 
 <div id="container">
-    <span data-bind="text: step"></span> 
     <div data-bind="visible: isStep(1)">
         Step is <span data-bind="text: step"></span> 
         <ul>
             <li>Registration:</li>
-            <li>Name - First/Last</li>
+            <li>@Html.Label("First Name: ") @Html.TextBox("Fname")</li>
             <li>Contact Info</li>
             <li>company info</li>
             <li>username/pass</li>

@@ -16,56 +16,47 @@ using System.Web;
 using System.Web.Mvc;
 using AgiSoft.Models;
 
-namespace AgiSoft.Controllers
-{
-    public class SprintController : Controller
-    {
+namespace AgiSoft.Controllers {
+    [Authorize]
+    public class SprintController : Controller {
         private AgiSoftDb db = new AgiSoftDb();
 
         // GET: /Sprint/
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             return View();
         }
 
         // GET: /Sprint/Backlog/
-        public ActionResult Backlog()
-        {
+        public ActionResult Backlog() {
             return View();
         }
 
         // GET: /Sprint/Epic/
-        public ActionResult Epic()
-        {
+        public ActionResult Epic() {
             return View();
         }
 
         // GET: /Sprint/Story/
-        public ActionResult Story()
-        {
+        public ActionResult Story() {
             return View();
         }
 
         // GET: /Sprint/Task/
-        public ActionResult Task()
-        {
+        public ActionResult Task() {
             return View();
         }
 
         // GET: /Sprint/Plan/
-        public ActionResult Plan()
-        {
+        public ActionResult Plan() {
             return View();
         }
 
         // GET: /Sprint/Reports/
-        public ActionResult Reports()
-        {
+        public ActionResult Reports() {
             return View();
         }
 
-        public ActionResult MajorFeature()
-        {
+        public ActionResult MajorFeature() {
             MajorFeature model = new Models.MajorFeature();
 
             var teambind = from p in db.Teams
@@ -73,8 +64,7 @@ namespace AgiSoft.Controllers
 
             List<Teams> teamname = new List<Teams>();
 
-            foreach (var item1 in teambind)
-            {
+            foreach (var item1 in teambind) {
                 Teams team = new Teams() { TeamId = item1.TeamId, TeamName = item1.TeamName };
                 teamname.Add(team);
             }
@@ -86,8 +76,7 @@ namespace AgiSoft.Controllers
 
             List<Projects> projectname = new List<Projects>();
 
-            foreach (var item1 in projectbind)
-            {
+            foreach (var item1 in projectbind) {
                 Projects project = new Projects() { ProjectId = item1.ProjectId, ProjectNum = item1.ProjectNum };
                 projectname.Add(project);
             }
@@ -100,20 +89,18 @@ namespace AgiSoft.Controllers
         // GET: /Sprint/SprintCreate
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult MajorFeature(MajorFeature majorfeature)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult MajorFeature(MajorFeature majorfeature) {
+            if (ModelState.IsValid) {
                 db.MajorFeature.Add(majorfeature);
                 db.SaveChanges();
 
                 var teambind = (from p in db.MajorFeature
-                           select p.MFId).Max();
+                                select p.MFId).Max();
 
-                RFE rfe=new RFE();
-                rfe.MFId=teambind;
-                rfe.ProjectId=majorfeature.ProjectId;
-                rfe.TeamId=majorfeature.TeamId;
+                RFE rfe = new RFE();
+                rfe.MFId = teambind;
+                rfe.ProjectId = majorfeature.ProjectId;
+                rfe.TeamId = majorfeature.TeamId;
                 db.RFE.Add(rfe);
                 db.SaveChanges();
 
@@ -123,8 +110,7 @@ namespace AgiSoft.Controllers
         }
 
         // GET: /Sprint/SprintCreate
-        public ActionResult SprintCreate()
-        {
+        public ActionResult SprintCreate() {
             Sprints model = new Models.Sprints();
 
             var teambind = from p in db.Teams
@@ -132,8 +118,7 @@ namespace AgiSoft.Controllers
 
             List<Teams> teamname = new List<Teams>();
 
-            foreach (var item1 in teambind)
-            {
+            foreach (var item1 in teambind) {
                 Teams team = new Teams() { TeamId = item1.TeamId, TeamName = item1.TeamName };
                 teamname.Add(team);
             }
@@ -146,10 +131,8 @@ namespace AgiSoft.Controllers
         // POST: /Admin/RolesCreate/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SprintCreate(Sprints sprints)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult SprintCreate(Sprints sprints) {
+            if (ModelState.IsValid) {
                 db.Sprints.Add(sprints);
                 db.SaveChanges();
 

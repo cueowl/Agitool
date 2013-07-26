@@ -15,15 +15,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace AgiSoft.Controllers
-{
-    public class ProjMgrController : Controller
-    {
+namespace AgiSoft.Controllers {
+    [Authorize]
+    public class ProjMgrController : Controller {
         //
         // GET: /ProjMgr/
 
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             return View();
         }
 

@@ -79,9 +79,15 @@ namespace AgiSoft.Controllers {
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: /Account/Register  --- Registration not available to general public. Users are added by managers in account
+        // GET: /Account/Register  --- Registration not available to general public. Tool Users are added by managers in account
+        //                         --- Client users register at time of signup
         public ActionResult Register() {
-            return View();
+            if (User.Identity.IsAuthenticated) {
+                return RedirectToRoute("MemberHome");
+            }
+            else {
+                return RedirectToAction("SignUp", "Product");
+            }
         }
 
         // POST: /Account/Register

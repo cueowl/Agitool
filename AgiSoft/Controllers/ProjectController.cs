@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using AgiSoft.Models;
 
 namespace AgiSoft.Controllers {
+    [Authorize]
     public class ProjectController : Controller {
         private AgiSoftDb db = new AgiSoftDb();
         //

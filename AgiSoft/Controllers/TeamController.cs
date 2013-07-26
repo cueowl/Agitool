@@ -15,6 +15,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebMatrix.WebData;
 using AgiSoft.Models;
 
 namespace AgiSoft.Controllers {
@@ -23,12 +24,24 @@ namespace AgiSoft.Controllers {
 
         // GET: /Team/
         public ActionResult Index() {
-            return View();
+            return View(db.Teams.ToList());
         }
 
         // GET: /Team/Member
         public ActionResult Member() {
-            return View();
+            int uid = WebSecurity.GetUserId(User.Identity.Name);
+            Teams t = db.Teams.Find(uid);
+            
+            return View(db.UsersOnTeam.Where(x=>x.TeamId == t.TeamId).ToList());
+        }
+
+        // GET: /Team/MemberTeams
+        public ActionResult MemberTeams(int id) {
+            Teams t = db.Teams.Find(id);
+            TeamViewModel tvm = new TeamViewModel(t);
+
+
+            return View(tvm);
         }
 
         // GET: /Team/TeamProject

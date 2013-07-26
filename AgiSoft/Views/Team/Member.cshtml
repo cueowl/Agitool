@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<AgiSoft.Models.UsersOnTeam>
+
+@{
     ViewBag.Title = "Member";
 }
 
@@ -42,3 +44,35 @@
         member can edit profile
     </li>
 </ul>
+<br />
+<h2>Members on your team</h2>
+
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 50%;">
+            <table>
+                <tr>
+                    <th>Member Names:
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(mem => item.UserProfile.UserName)
+                        </td>
+                        
+                        <td>
+                            @Html.ActionLink("Member Details", "MemberDetails", new { id = item.UserId })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Send Message", "Member", new {id=item.UserId}, new { onclick = "alert('This is not implemented yet',)"} )
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </td>
+    </tr>
+</table>

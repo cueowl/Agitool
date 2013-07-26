@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<AgiSoft.Models.Teams>
+
+@{
     ViewBag.Title = "Index";
 }
 
@@ -35,3 +37,44 @@
         </ul>
     </li>
 </ul>
+<br />
+<h2>Teams</h2>
+
+<p>
+    @Html.ActionLink("Create Team", "TeamsCreate")
+</p>
+
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 50%;">
+            <table>
+                <tr>
+                    <th>Team Names:
+                    </th>
+                    <th>Team Desc:</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(rName => item.TeamName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(rName => item.TeamDesc)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit Teams", "TeamsEdit", new { id = item.TeamId }) |
+                            @Html.ActionLink("Team Details", "TeamsDetails", new { id = item.TeamId }) |                        
+                            @Html.ActionLink("Delete Team", "Delete", "Team", new { id = item.TeamId }, new { id = item.TeamId, onclick = "return confirm('Are you sure you wish to delete this?')" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Add Member To Team", "MemberTeams", new {id=item.TeamId})
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </td>
+    </tr>
+</table>

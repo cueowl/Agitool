@@ -1,0 +1,46 @@
+﻿@model AgiSoft.Models.TeamViewModel
+
+@{
+    ViewBag.Title = "MemberTeams";
+}
+
+<h2>MemberTeams</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>TeamViewModel</legend>
+
+        <div>
+            @Html.LabelFor(model => model.TeamNm)
+        </div>
+        <div>
+            @Html.DisplayFor(model => model.TeamNm)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MemNm)
+        </div>
+        <div class="editor-field">
+            <select>
+                @foreach (AgiSoft.Models.UserProfile u in Model.Member) {
+                    <option value="@u.UserId">@u.UserName</option>
+                }                
+            </select>
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

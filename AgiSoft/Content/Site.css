@@ -171,6 +171,10 @@ header .content-wrapper {
     background-color: #aaa;
 }
 
+.labelForClass {
+    width: 150px;
+}
+
 footer {
     clear: both;
     font-size: .8em;

@@ -202,7 +202,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MemProv\Cue-MembProv.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AgiSoftDb.cs" />
     <Compile Include="Models\CueDb.cs" />
@@ -406,6 +405,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
+    <Folder Include="MemProv\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

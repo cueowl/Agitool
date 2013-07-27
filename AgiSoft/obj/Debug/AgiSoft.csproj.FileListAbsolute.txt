@@ -376,3 +376,4 @@ C:\Users\Harshad\Documents\GitHub\Agitool\AgiSoft\bin\zh-Hans\System.Spatial.res
 C:\Users\Harshad\Documents\GitHub\Agitool\AgiSoft\bin\zh-Hant\System.Spatial.resources.dll
 C:\Users\Harshad\Documents\GitHub\Agitool\AgiSoft\obj\Debug\AgiSoft.dll
 C:\Users\Harshad\Documents\GitHub\Agitool\AgiSoft\obj\Debug\AgiSoft.pdb
+C:\Users\Harshad\Documents\GitHub\Agitool\AgiSoft\obj\Debug\AgiSoft.csprojResolveAssemblyReference.cache

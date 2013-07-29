@@ -1,0 +1,50 @@
+﻿@model AgiSoft.Models.Teams
+
+@{
+    ViewBag.Title = "TeamsEdit";
+}
+
+@if(ViewBag.Type == "team"){
+    <h2>TeamEdit</h2>
+
+    using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Teams</legend>
+
+            @Html.HiddenFor(m => m.TeamId)
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.TeamName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.TeamName)
+                @Html.ValidationMessageFor(m => m.TeamName)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.TeamDesc)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.TeamDesc)
+                @Html.ValidationMessageFor(m => m.TeamDesc)
+            </div>
+
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+    }
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+}

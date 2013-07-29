@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "RFE";
+}
+<script>
+    $(function () {
+        var frnum = $("#frnum"),
+          frdesc = $("#frdesc"),
+          em_mf = $("#em_mf"),
+          allFields = $([]).add(frnum).add(frdesc).add(em_mf),
+          tips = $(".validateTips");
+
+        function updateTips(t) {
+            tips
+              .text(t)
+              .addClass("ui-state-highlight");
+            setTimeout(function () {
+                tips.removeClass("ui-state-highlight", 1500);
+            }, 500);
+        }
+
+        function checkLength(o, n, min, max) {
+            if (o.val().length > max || o.val().length < min) {
+                o.addClass("ui-state-error");
+                updateTips("Length of " + n + " must be between " +
+                  min + " and " + max + ".");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function checkRegexp(o, regexp, n) {
+            if (!(regexp.test(o.val()))) {
+                o.addClass("ui-state-error");
+                updateTips(n);
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        $("#dialog-form").dialog({
+            autoOpen: false,
+            height: 300,
+            width: 350,
+            modal: true,
+            buttons: {
+                "Add Functional No.": function () {
+                    var bValid = true;
+                    allFields.removeClass("ui-state-error");
+
+                    bValid = bValid && checkLength(frnum, "frnum", 1, 16);
+                    bValid = bValid && checkLength(frdesc, "frdesc", 6, 80);
+                    bValid = bValid && checkLength(em_mf, "em_mf", 5, 16);
+
+                    if (bValid) {
+                        $("#users tbody").append("<tr>" +
+                          "<td>" + frnum.val() + "</td>" +
+                          "<td>" + frdesc.val() + "</td>" +
+                          "<td>" + em_mf.val() + "</td>" +
+                        "</tr>");
+                        $(this).dialog("close");
+                    }
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+                allFields.val("").removeClass("ui-state-error");
+            }
+        });
+
+        $("#create-user")
+          .button()
+          .click(function () {
+              $("#dialog-form").dialog("open");
+          });
+    });
+</script>
+
+@Html.BeginForm()
+{
+    @Html.AntiForgeryToken()
+
+<div id="dialog-form" title="Create new FR">
+    <form>
+        <fieldset>
+            <label for="name">FRNum</label>
+            <input type="text" name="name" id="frnum" class="text ui-widget-content ui-corner-all" />
+            <label for="name">FRDesc</label>
+            <input type="text" name="email" id="frdesc" value="" class="text ui-widget-content ui-corner-all" />
+            <label for="name">EM_MF</label>
+            <input type="text" name="password" id="em_mf" value="" class="text ui-widget-content ui-corner-all" />
+        </fieldset>
+    </form>
+</div>
+
+
+<div id="users-contain" class="ui-widget">
+    <h1>Existing RFE's :</h1>
+    <table id="users" class="ui-widget ui-widget-content">
+        <thead>
+            <tr class="ui-widget-header ">
+                <th>FRNum</th>
+                <th>FRDesc</th>
+                <th>EM_MF</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John Doe</td>
+                <td>john.doe@example.com</td>
+                <td>johndoe1</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<button id="create-user">Create new FR</button>
+<input type="submit" name="Add" value="Add" />
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+}
+}

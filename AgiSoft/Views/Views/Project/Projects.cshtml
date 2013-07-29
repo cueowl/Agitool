@@ -1,0 +1,59 @@
+﻿@model List<AgiSoft.Models.Projects>
+
+@{
+    ViewBag.Title = "Projects";
+}
+
+<h2>Projects</h2>
+
+<p>
+    @Html.ActionLink("Create Project", "ProjectsCreate")
+</p>
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 50%;">
+            <table>
+                <tr>
+                    <th>Project Num:
+                    </th>
+                    <th>Project Name:</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(rName => item.ProjectNum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(rName => item.ProjectName)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "ProjectsEdit", "Projects", new
+                       {
+                           id = item.ProjectId,
+                           style = "background: url('../../Images/edit_icon.jpg') no-repeat center right;display:block; height:24px; width:24px;"
+                       })</td>
+                        <td>
+                            @Html.ActionLink(" ", "ProjectsDelete", "Projects", new
+                       {
+                           id = item.ProjectId,
+                           style = "background: url('../../Images/view-detail.gif') no-repeat center right;display:block; height:24px; width:24px;"
+                       }) </td>
+                        <td>@Html.ActionLink(" ", "ProjectsDetails", "Projects", new
+                       {
+                           id = item.ProjectId,
+                           style = "background: url('../../Images/delete-icon.jpg') no-repeat center right;display:block; height:24px; width:24px;"
+                       })
+                            |
+                            @Html.ActionLink("Add ReleaseDates", "../ReleaseInfo/ReleaseInfo", new { id = item.ProjectId })|
+                            @Html.ActionLink("Add Team", "../Team/TeamProject", new { id = item.ProjectId })
+                            @Html.ActionLink("Add Percentage", "HoursBreakDown", new { Id = item.ProjectId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </td>
+    </tr>
+</table>

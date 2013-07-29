@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Member";
+}
+
+<h2>Member</h2>
+<nav>
+    <ul id="menu">
+        <li>@Html.ActionLink("Index", "Index", "Team")</li>
+        <li>@Html.ActionLink("Member", "Member", "Team")</li>
+        <li>@Html.ActionLink("Team Projects", "TeamProject", "Team")</li>
+        <li>@Html.ActionLink("Assignments", "Assignment", "Team")</li>
+    </ul>
+</nav>
+
+<ul>
+    <li>
+        View team members
+        <ul>
+            <li>
+                at team level
+            </li>
+            <li>
+                view member info
+            </li>
+        </ul>
+    </li>
+    <li>
+        admin functions
+        <ul>
+            <li>
+                add/delete members on team (functions are only team related and not system)
+            </li>
+            <li>
+                edit member
+            </li>
+            <li>
+                other admin stuff
+            </li>
+        </ul>
+    </li>
+    <li>
+        member can edit profile
+    </li>
+</ul>

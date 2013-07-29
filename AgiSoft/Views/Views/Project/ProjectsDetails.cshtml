@@ -1,0 +1,25 @@
+﻿@model AgiSoft.Models.Projects
+
+@{
+    ViewBag.Title = "ProjectDetails";
+}
+
+@if (ViewBag.Type == "project") {
+        
+    <h2>ProjectDetails</h2>
+
+    <fieldset>
+        <legend>Project</legend>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.ProjectName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ProjectName)
+        </div>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Edit", "ProjectsEdit", new { id=Model.ProjectId}) |
+        @Html.ActionLink("Back to List", "Projects")
+    </p>
+}

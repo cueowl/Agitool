@@ -1,0 +1,161 @@
+﻿@model AgiSoft.Models.WorkGroupPercentage
+@{
+    ViewBag.Title = "HoursBreakDown";
+}
+
+<h2>HoursBreakDown Percentage</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(m => m.ProjectId)
+    
+    <div class="editor-field">
+        <table>
+            <tr>
+                <td width="100px">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.EM)
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.EM)
+                    @Html.ValidationMessageFor(model => model.EM)
+                </td>
+                <td width="100px">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Req)
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Req)
+                    @Html.ValidationMessageFor(model => model.Req)
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="editor-field">
+        <table>
+            <tr>
+                <td width="100px">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Docs)
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Docs)
+                    @Html.ValidationMessageFor(model => model.Docs)
+                </td>
+                <td width="100px">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Design)
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Design)
+                    @Html.ValidationMessageFor(model => model.Design)
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="editor-field">
+        <table>
+            <tr>
+                <td width="100px">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Dev)
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Dev)
+                    @Html.ValidationMessageFor(model => model.Dev)
+                </td>
+                <td width="100px">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.UnitTest)
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.UnitTest)
+                    @Html.ValidationMessageFor(model => model.UnitTest)
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="editor-field">
+        <table>
+            <tr>
+                <td width="100px">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.SIT)
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.SIT)
+                    @Html.ValidationMessageFor(model => model.SIT)
+                </td>
+                <td width="100px">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.UAT)
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.UAT)
+                    @Html.ValidationMessageFor(model => model.UAT)
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="editor-field">
+        <table>
+            <tr>
+                <td width="100px">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Peerreview)
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Peerreview)
+                    @Html.ValidationMessageFor(model => model.Peerreview)
+                </td>
+                <td width="100px">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.TurnSupport)
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.TurnSupport)
+                    @Html.ValidationMessageFor(model => model.TurnSupport)
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="editor-field">
+        <table>
+            <tr>
+                <td width="100px">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.ProjMgmt)
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.ProjMgmt)
+                    @Html.ValidationMessageFor(model => model.ProjMgmt)
+                </td>
+                <td width="100px">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Warranty)
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Warranty)
+                    @Html.ValidationMessageFor(model => model.Warranty)
+                </td>
+            </tr>
+        </table>
+    </div>
+    <p>
+        <input type="submit" value="Create" />
+    </p>
+}

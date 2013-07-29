@@ -1,0 +1,49 @@
+﻿@model AgiSoft.Models.Teams
+@{
+    ViewBag.Title = "ListofMajorFeatures";
+}
+@if (Model.majorfeature != null)
+{
+    <table border="1">
+        <tr>
+            <td><b>Team Name</b>
+            </td>
+            <td><b>Project Number</b>
+            </td>
+            <td><b>Project Name</b>
+            </td>
+            <td><b>Major Feature Number</b>
+            </td>
+            <td><b>Description</b>
+            </td>
+            <td><b>Total Effort</b>
+            </td>
+        </tr>
+        @foreach (var item in Model.majorfeature)
+        {
+            <tr>
+                <td>
+                    @item.MFTeamName
+                </td>
+                <td>
+                    @item.ProjectNum
+                </td>
+                <td>
+                    @item.ProjectName
+                </td>
+                <td>
+                    @item.MFNum
+                </td>
+                <td>
+                    @item.MFDesc
+                </td>
+                <td>
+                    @item.TotalEfforts
+                </td>
+                <td>
+                    @Html.ActionLink("Create RFE", "RFECreate", new { id = item.MFId, type = "mf" })                        
+                </td>
+            </tr>   
+        }
+    </table>
+}

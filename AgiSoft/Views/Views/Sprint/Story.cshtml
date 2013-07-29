@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Story";
+}
+
+<h2>Story</h2>
+<nav>
+    <ul id="menu">
+        <li>@Html.ActionLink("Index", "Index", "Sprint")</li>
+        <li>@Html.ActionLink("Member", "Backlog", "Sprint")</li>
+        <li>@Html.ActionLink("Sprint Plan", "Plan", "Sprint")</li>
+        <li>@Html.ActionLink("Reports", "Reports", "Sprint")</li>
+        <li>@Html.ActionLink("Epics", "Epic", "Sprint")</li>
+        <li>@Html.ActionLink("Stories", "Story", "Sprint")</li>
+        <li>@Html.ActionLink("Tasks", "Task", "Sprint")</li>
+    </ul>
+</nav>
+
+<p>
+    This could be a small window that gets popped up<br />
+    Means to edit information in the story
+</p>
+<ul>
+    <li>points</li>
+    <li>Est Hours(?)</li>
+    <li>tasks</li>
+</ul>

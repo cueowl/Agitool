@@ -24,12 +24,23 @@ namespace AgiSoft.Helpers {
 
 
         // Queries
+        public int CurrentUserSettingId(string uname) {
+            using (db = new AgiSoftDb()) {
+                UserProfile up = db.UserProfiles.First(x => x.UserName == uname);
+                return up.SettingId;
+            }
+        }
+
         public bool IsUserInRole() {
             using (db=new AgiSoftDb()) {
                 UsersInRoles uir = db.UsersInRoles.Find(RolesID, UsersID);
 
                 return (uir != null);
             }
+        }
+
+        public UsersInRoles GetUserInRole(string role) {
+            return (UsersInRoles)db.UsersInRoles.Where(x => x.Roles.RoleCode == role);
         }
 
         public bool UserHasPermission() {

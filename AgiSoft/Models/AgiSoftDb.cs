@@ -49,6 +49,7 @@ namespace AgiSoft.Models {
         public DbSet<UsersOnTeam> UsersOnTeam { get; set; }
         public DbSet<webRoles> Roles { get; set; }
         public DbSet<webpages_Membership> Membership { get; set; }
+        public DbSet<WorkGroupPercentage> WorkGroupPercentages { get; set; }
 
         public DbSet<ClientProdReg> ClientProdRegs { get; set; }
 
@@ -185,7 +186,7 @@ namespace AgiSoft.Models {
         [ForeignKey("CodeSet")]
         public int Status { get; set; }
 
-        public double TotalBudget { get; set; }
+        public double? TotalBudget { get; set; }
 
         [ForeignKey("Settings")]
         public int SettingId { get; set; }
@@ -341,7 +342,6 @@ namespace AgiSoft.Models {
 
         [ForeignKey("UserProfile")]
         public int UserId { get; set; }
-
         [ForeignKey("Projects")]
         public int ProjectId { get; set; }
 
@@ -397,6 +397,34 @@ namespace AgiSoft.Models {
         public int RoleId { get; set; }
 
         public string RoleName { get; set; }
+        public string RoleCode { get; set; }
         public string RoleDesc { get; set; }
+    }
+
+    public class WorkGroupPercentage {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int WorkGroupId { get; set; }
+
+        [ForeignKey("Team")]
+        public int TeamId { get; set; }
+        [ForeignKey("Project")]
+        public int ProjectId { get; set; }
+
+        public double EM { get; set; }
+        public double Req { get; set; }
+        public double Docs { get; set; }
+        public double Design { get; set; }
+        public double Dev { get; set; }
+        public double UnitTest { get; set; }
+        public double SIT { get; set; }
+        public double UAT { get; set; }
+        public double Peerreview { get; set; }
+        public double TurnSupport { get; set; }
+        public double ProjMgmt { get; set; }
+        public double Warranty { get; set; }
+
+        public virtual Teams Team { get; set; }
+        public virtual Projects Project { get; set; }
     }
 }

@@ -22,6 +22,9 @@ namespace AgiSoft.Controllers {
     [Authorize]
     public class TeamController : Controller {
         private AgiSoftDb db = new AgiSoftDb();
+        private int uid = 0;
+        private int usetting = 0;
+
 
         // GET: /Team/
         public ActionResult Index() {
@@ -30,7 +33,8 @@ namespace AgiSoft.Controllers {
 
         // GET: /Team/Member
         public ActionResult Member() {
-            int uid = WebSecurity.GetUserId(User.Identity.Name);
+            uid = WebSecurity.GetUserId(User.Identity.Name);
+
             Teams t = db.Teams.Find(uid);
             
             return View(db.UsersOnTeam.Where(x=>x.TeamId == t.TeamId).ToList());
@@ -45,9 +49,71 @@ namespace AgiSoft.Controllers {
             return View(tvm);
         }
 
-        // GET: /Team/TeamProject
+        // GET: /Team/TeamProject/
         public ActionResult TeamProject() {
+            
             return View();
+        }
+
+        // POST: /Team/TeamProject
+        [HttpPost]
+        public ActionResult TeamProject(int id, TeamOnProject model) {
+            model.ProjectId = id;
+            db.TeamOnProject.Add(model);
+            db.SaveChanges();
+
+            return View("Index");
+            //return RedirectToAction("Project", "Projects");
+        }
+
+        // GET: /Team/Admin/
+        public ActionResult Admin() {
+            uid = WebSecurity.GetUserId(User.Identity.Name);
+            usetting = db.UserProfiles.First(x => x.UserId == uid).SettingId;
+
+            var proj = db.Projects.Where(x => x.Status == 3).Where(v=>v.SettingId == usetting);
+            
+            Projects prj = new Projects() { ProjectId = 0, ProjectNum = "0", ProjectName = "--Select--" };
+            
+            List<Projects> ProjList = new List<Projects>();
+            ProjList.Add(prj);
+
+            foreach (var pr in proj) {
+                prj = new Projects() { ProjectId = pr.ProjectId, ProjectNum = pr.ProjectNum, ProjectName = pr.ProjectName };
+                ProjList.Add(prj);
+            }
+
+            ViewBag.ProjectId = new SelectList(ProjList, "ProjectId", "ProjectName");
+
+            var teamitem = from p in db.Teams
+                           select p;
+
+            TeamOnProject modelteam = new TeamOnProject();
+            List<Teams> team = new List<Teams>();
+
+            Teams team1 = new Teams() { TeamId = 0, TeamName = "--Select--" };
+            team.Add(team1);
+            foreach (var item1 in teamitem) {
+                team1 = new Teams() { TeamId = item1.TeamId, TeamName = item1.TeamName };
+                team.Add(team1);
+            }
+
+            ViewBag.teamId = new SelectList(team, "TeamId", "TeamName", modelteam.TeamId);
+
+            return View();
+        }
+
+        // POST: /Team/Admin
+        [HttpPost]
+        public ActionResult Admin(TeamOnProject model) {
+            TeamOnProject t = new TeamOnProject();
+            t.ProjectId = model.ProjectId;
+            t.TeamId = model.TeamId;
+            db.TeamOnProject.Add(t);
+            db.SaveChanges();
+
+            return View("Index");
+            //return RedirectToAction("Project", "Projects");
         }
 
         // GET: /Team/Assignment

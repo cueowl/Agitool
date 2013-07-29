@@ -1,0 +1,34 @@
+﻿@model AgiSoft.Models.TeamOnProject
+@{
+    ViewBag.Title = "TeamProject";
+}
+
+<h2>TeamProject</h2>
+<nav>
+    <ul id="menu">
+        <li>@Html.ActionLink("Index", "Index", "Team")</li>
+        <li>@Html.ActionLink("Member", "Member", "Team")</li>
+        <li>@Html.ActionLink("Team Projects", "TeamProject", "Team")</li>
+        <li>@Html.ActionLink("Assignments", "Assignment", "Team")</li>
+    </ul>
+</nav>
+
+@using (Html.BeginForm()){
+    
+    Html.AntiForgeryToken();
+    Html.HiddenFor(model => model.ProjectId);
+    Html.HiddenFor(model => model.TeamId);
+    
+    <span>Project Name:</span>
+    <div class="editor-label">
+        @Html.DropDownListFor(model => model.ProjectId, (SelectList)ViewBag.ProjectId)
+        @Html.ValidationMessageFor(model=>model.ProjectId)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model => model.TeamId, (SelectList)ViewBag.teamid, new { style = "width:250px" })
+        @Html.ValidationMessageFor(model => model.TeamId)
+    </div>
+    <div>
+        <input type="submit" id="assign" value="Assign" name="Assign" />
+    </div>
+}

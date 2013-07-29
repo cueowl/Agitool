@@ -21,6 +21,7 @@ using System.Web.Security;
 using Postal;
 
 namespace AgiSoft.Controllers {
+    [Authorize]
     public class AdminController : Controller {
         // Fields
         private AgiSoftDb db = new AgiSoftDb();
@@ -28,6 +29,11 @@ namespace AgiSoft.Controllers {
 
         // GET: /Admin/
         public ActionResult Index() {
+            RoleHelper rh = new RoleHelper();
+            rh.UsersID = db.UserProfiles.First(x=>x.UserName == User.Identity.Name).UserId;
+            rh.RolesID = db.Roles.First(x => x.RoleName == "Admin").RoleId;
+            bool isUser = rh.IsUserInRole();
+
             return View();
         }
 

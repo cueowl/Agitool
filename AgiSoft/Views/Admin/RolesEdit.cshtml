@@ -10,25 +10,28 @@
     function init() {
         $('.dragRole').draggable(
             {
-                stack: '#dragRole div',
+                stack: '#dragRole ul',
                 cursor: 'move',
                 revert: 'invalid'
             });
         $('#rGrp').droppable(
             {
-                stack: '#dragRole div',
+                stack: '#dragRole ul',
                 hoverClass: 'rConHover',
                 drop: function (event, ui) {
                     $(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo(this);
+                    var rid = $(ui.draggable).id;
+                    
                 }
             });
 
         $('#rContain').droppable(
             {
-                stack: '#dragRole div',
+                stack: '#dragRole ul',
                 hoverClass: 'rConHover',
                 drop: function (event, ui) {
                     $(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo(this);
+                    
                 }
             });
     }
@@ -120,10 +123,16 @@
                              <tr style="vertical-align:top;">
                                   <td style="text-align:center;">@Html.DisplayFor(d => d.Item2.GroupName)</td>
                                    <td>
-                                       <div id="rContain">
-                                           @foreach (var i in Model.Item3) {
-                                               <div id="dragRole" class="dragRole">@i.Roles.RoleName</div>
-                                           }
+                                       <div style="text-align:center; border:1px solid #000;min-height:200px;width:100px">
+                                           <ul id="rContain">
+                                               @if(Model.Item3.Count>0){
+                                                   foreach (var i in Model.Item3) {
+                                                   <li>
+                                                       <div id="@i.Roles.RoleId" class="dragRole">@i.Roles.RoleName</div>
+                                                   </li>
+                                                   }
+                                               }
+                                           </ul>
                                        </div>
                                    </td>
                              </tr>           
@@ -138,7 +147,8 @@
                              </tr>
                              <tr>
                                  <td colspan="2">
-                                     <div id="rGrp" style="text-align:center; border:1px solid #000;min-height:200px;width:100px">
+                                     <div style="text-align:center; border:1px solid #000;min-height:200px;width:100px">
+                                         <ul id="rGrp">
                                          @foreach (var r in Model.Item4) {
                                              string s = r.RoleName;
                                              foreach (var n in Model.Item3) {
@@ -147,9 +157,10 @@
                                                  }                                             
                                              }
                                              if (!s.Equals("")) {
-                                                 <div id="dragRole" class="dragRole">@r.RoleName</div>
+                                                 <li id="@r.RoleId" class="dragRole">@r.RoleName</li>
                                              }
                                          }
+                                         </ul>
                                      </div>
                                  </td>
                              </tr>

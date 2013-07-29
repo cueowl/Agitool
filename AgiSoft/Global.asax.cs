@@ -15,10 +15,9 @@ namespace AgiSoft {
     public class MvcApplication : System.Web.HttpApplication {
         protected void Application_Start() {
 
-            //if (!WebSecurity.Initialized) {
-            //    WebSecurity.InitializeDatabaseConnection("CueConnect", "User", "UserId", "Username", autoCreateTables: false);
-            //    //WebSecurity.InitializeDatabaseConnection("AgiConnect", "UserProfile", "UserId", "UserName", autoCreateTables: false);
-            //}
+            if (!WebSecurity.Initialized) {
+                WebSecurity.InitializeDatabaseConnection("CueConnect", "User", "UserId", "UserName", autoCreateTables: true);
+            }
 
             AreaRegistration.RegisterAllAreas();
 

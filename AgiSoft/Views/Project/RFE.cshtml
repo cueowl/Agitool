@@ -1,0 +1,79 @@
+﻿@model List<AgiSoft.Models.RFE>
+@{
+    ViewBag.Title = "RFE";
+}
+
+<script type="text/javascript">
+    function openepic(value) {
+        window.open('../Sprint/EpicCreate?RFEId=' + value, null, 'height=500, width=1100, status=no, resizable=no, scrollbars=yes, toolbar=no,location=no, menubar=no');
+    }   
+
+    function openrfe(value) {
+        window.open('../Sprint/FRDetail?RFEId=' + value, null, 'height=500, width=1100, status=no, resizable=no, scrollbars=yes, toolbar=no,location=no, menubar=no');
+    } 
+</script>
+<h2>RFE</h2>
+<p>
+    @Html.ActionLink("Create RFE", "RFECreate")
+</p>
+@if (Model != null)
+{
+    <table border="1px" style="grid-column: auto">
+        <tr>
+            <td><b>Project Number</b>
+            </td>
+            <td><b>Project Name</b>
+            </td>
+            <td><b>Team Name</b>
+            </td>
+            <td><b>Major Feature No</b>
+            </td>
+            <td><b>Major Feature Desc</b>
+            </td>
+        </tr>
+        @foreach (var item in Model)
+        {   
+            <tr>
+                <td>
+                    @item.Projects.ProjectNum
+                </td>
+                <td>
+                    @item.Projects.ProjectName
+                </td>
+                <td>
+                    @item.Teams.TeamName
+                </td>
+                <td>
+                    @item.MajorFeature.MFNum
+                </td>
+                <td>
+                    @item.MajorFeature.MFDesc
+                </td>
+                <td>
+                    <input type="button" id="epiccreate" onclick="return openepic('@item.RFEId');" value="Epic" name="Epic" title="Epic" />
+                </td>
+                <td>
+                <input type="button" id="rfe" onclick="return openrfe('@item.RFEId');" value="List of FR" name="List of FR" title="List of FR" />
+                </td>
+                <td>
+                    @Html.ActionLink(" ", "ProjectsEdit", "Projects", new
+                       {
+                           id = item.RFEId,
+                           style = "background: url('../../Images/edit_icon.jpg') no-repeat center right;display:block; height:24px; width:24px;"
+                       })</td>
+                <td>
+                    @Html.ActionLink(" ", "ProjectsDetails", "Projects", new
+                       {
+                           id = item.RFEId,
+                           style = "background: url('../../Images/view-detail.gif') no-repeat center right;display:block; height:24px; width:24px;"
+                       }) </td>
+                <td>@Html.ActionLink(" ", "ProjectsDelete", "Projects", new
+                       {
+                           id = item.RFEId,
+                           style = "background: url('../../Images/delete-icon.jpg') no-repeat center right;display:block; height:24px; width:24px;"
+                       })</td>
+            </tr>
+        }
+    </table>
+}
+

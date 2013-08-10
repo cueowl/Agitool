@@ -1,0 +1,44 @@
+﻿@model AgiSoft.Models.Stories
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>StoryCreate</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm())
+        { 
+            @Html.AntiForgeryToken();
+            <table>
+                <tr>
+                    <td>
+                        @Html.Label("Story Description")
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(m => m.StoryDesc)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Hours")
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Hours)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Create" title="Create" name="Create" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</body>
+</html>

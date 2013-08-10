@@ -1,0 +1,61 @@
+﻿@model AgiSoft.Models.Tasks
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>StoryCreate</title>
+    <script type="text/javascript">
+        function closeme() {
+            self.close()
+        }
+    </script>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm())
+        { 
+            @Html.AntiForgeryToken();
+            <table>
+                <tr>
+                    <td>
+                        @Html.Label("Task Description")
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(m => m.TaskDesc, 1, 4, new { style = "height:160px; width:600px" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Condition of Complete")
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(m => m.ConditionOfComplete, 1, 4, new { style = "height:160px; width:600px" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Hours")
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.ActualHours)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Create" title="Create" name="Create" />
+                    </td>
+                    <td>
+                        <input type="button" value="Close" title="Close" name="Close" onclick="return closeme();" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</body>
+</html>

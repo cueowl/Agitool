@@ -99,9 +99,7 @@ namespace AgiSoft.Controllers {
         // GET: /Project/ProjectsEdit
         public ActionResult ProjectsEdit(int id) {
             Projects projects = db.Projects.Find(id);
-
-            List<Projects> rlist = null;
-
+            
             if (projects == null) {
                 return HttpNotFound();
             }
@@ -189,6 +187,237 @@ namespace AgiSoft.Controllers {
 
 
             return RedirectToAction("Projects");
+        }
+
+        // GET: /Project/RFE
+        public ActionResult RFE() {
+            var context = new AgiSoftDb();
+            RFE model = new Models.RFE();
+            var rfe = context.RFE;
+
+            List<RFE> objrfe = new List<RFE>();
+
+            foreach (var r in rfe) {
+                model = new Models.RFE();
+                model.Projects = new Projects();
+                model.Teams = new Teams();
+                model.MajorFeature = new MajorFeature();
+
+                var team = (from t in db.Teams
+                            where t.TeamId == r.TeamId
+                            select t).ToList();
+
+                Projects project = db.Projects.SingleOrDefault(a => a.ProjectId == r.ProjectId);
+                MajorFeature mf = db.MajorFeature.SingleOrDefault(a => a.MFId == r.MFId);
+
+                var mfcount = db.MajorFeature.Count(a => a.MFId == r.MFId);
+
+                model.RFEId = r.RFEId;
+                model.Projects.ProjectNum = project.ProjectNum;
+                model.Projects.ProjectName = project.ProjectName;
+                model.Teams.TeamName = team[0].TeamName;
+                model.MajorFeature.MFNum = mf.MFNum;
+                model.MajorFeature.MFDesc = mf.MFDesc;
+                model.MajorFeature.MFId = mfcount;
+                objrfe.Add(model);
+            }
+            return View(objrfe);
+        }
+
+        // GET: /Project/RFECreate
+        public ActionResult RFECreate() {
+            RFE model = new Models.RFE();
+
+            var teambind = from p in db.Teams
+                           select p;
+
+            List<Teams> teamname = new List<Teams>();
+            Teams team = new Teams() { TeamId = 0, TeamName = "--Select--" };
+            teamname.Add(team);
+            foreach (var item1 in teambind) {
+                team = new Teams() { TeamId = item1.TeamId, TeamName = item1.TeamName };
+                teamname.Add(team);
+            }
+
+            ViewBag.teamid = new SelectList(teamname, "TeamId", "TeamName", model.TeamId);
+
+            var projectbind = from p in db.Projects
+                              select p;
+
+            List<Projects> projectname = new List<Projects>();
+            Projects project = new Projects() { ProjectId = 0, ProjectNum = "--Select--" };
+            projectname.Add(project);
+            foreach (var item1 in projectbind) {
+                project = new Projects() { ProjectId = item1.ProjectId, ProjectNum = item1.ProjectNum };
+                projectname.Add(project);
+            }
+
+            ViewBag.projectid = new SelectList(projectname, "ProjectId", "ProjectNum", model.ProjectId);
+
+            return View(model);
+        }
+
+        // POST: /Project/RFECreate
+        [HttpPost]
+        public ActionResult RFECreate(FormCollection frm, RFE model) {
+            string[] frnum = frm["FRNum"].Split(',');
+            string[] frdesc = frm["FRDesc"].Split(',');
+            string[] frestimate = frm["FREstimate"].Split(',');
+
+            if (frnum.Length > 0) {
+                model.MFId = 1;
+                db.RFE.Add(model);
+                db.SaveChanges();
+
+                var item = (from e in db.RFE
+                            select e.RFEId).Max();
+
+                FunctionReq model1 = new FunctionReq();
+                for (int i = 0; i < frnum.Length; i++) {
+                    model1.RFEId = item;
+                    model1.FRNum = frnum[i];
+                    model1.FRDesc = frdesc[i];
+                    model1.EM_MF = Convert.ToDouble(frestimate[i].ToString());
+                    db.FunctionReq.Add(model1);
+                    db.SaveChanges();
+
+                    var itemfr = (from e in db.FunctionReq
+                                  select e.FRId).Max();
+
+                    double EM = (double)(model1.EM_MF * 3 / 100);
+                    double Req = (double)(model1.EM_MF * 3 / 100);
+                    double docs = (double)(model1.EM_MF * 2 / 100);
+                    double design = (double)(model1.EM_MF * 4 / 100);
+                    double dev = (double)(model1.EM_MF * 60 / 100);
+                    double peerreview = (double)(model1.EM_MF * 3 / 100);
+                    double sit = (double)(model1.EM_MF * 4 / 100);
+                    double uat = (double)(model1.EM_MF * 3 / 100);
+                    double unittest = (double)(model1.EM_MF * 3 / 100);
+                    double warranty = (double)(model1.EM_MF * 2 / 100);
+
+                    HoursBreakDown obj = new HoursBreakDown();
+                    obj.FRId = itemfr;
+                    obj.EM = EM;
+                    obj.Req = Req;
+                    obj.Docs = docs;
+                    obj.Design = design;
+                    obj.Dev = dev;
+                    obj.Peerreview = peerreview;
+                    obj.SIT = sit;
+                    obj.UAT = uat;
+                    obj.UnitTest = unittest;
+                    obj.warranty = warranty;
+                    obj.Status = 1;
+
+                    db.HoursBreakDown.Add(obj);
+                    db.SaveChanges();
+
+                    //return View("RFE");
+                }
+            }
+            return View("RFE");
+        }
+
+        // GET: /Project/FRDetail
+        public ActionResult FRDetail(int RFEId) {
+            var context = new AgiSoftDb();
+            FunctionReq model = new Models.FunctionReq();
+
+            var fr = (from e in db.FunctionReq
+                      where e.RFEId == RFEId
+                      select new { e.FRNum, e.FRDesc, e.EM_MF }).ToList();
+
+            List<FunctionReq> objfr = new List<FunctionReq>();
+
+            foreach (var r in fr) {
+                model = new Models.FunctionReq();
+
+                model.FRNum = r.FRNum;
+                model.FRDesc = r.FRDesc;
+                model.EM_MF = r.EM_MF;
+                objfr.Add(model);
+            }
+            return View(objfr);
+        }
+
+        // GET: /Project/ListofMajorFeatures
+        public ActionResult ListofMajorFeatures() {
+            var statusid = (from MajorFeature pt in db.MajorFeature
+                            join Projects p in db.Projects on pt.ProjectId equals p.ProjectId into temp
+                            from p in temp.DefaultIfEmpty()
+                            join Teams p1 in db.Teams on pt.TeamId equals p1.TeamId into temp1
+                            from p1 in temp1.DefaultIfEmpty()
+                            select new { pt.MFId, p.ProjectNum, p.ProjectName, pt.MFNum, pt.MFDesc, p1.TeamName, pt.EffortHours }).ToList();
+
+            Teams model = new Teams();
+            model.majorfeature = new List<SprintMajorFeatures>();
+            foreach (var item in statusid) {
+                SprintMajorFeatures obj = new SprintMajorFeatures();
+                obj.MFDesc = item.MFDesc;
+                obj.MFId = item.MFId;
+                obj.MFNum = item.MFNum;
+                obj.MFTeamName = item.TeamName;
+                obj.ProjectName = item.ProjectName;
+                obj.ProjectNum = item.ProjectNum;
+                obj.TotalEfforts = item.EffortHours.ToString();
+                model.majorfeature.Add(obj);
+            }
+
+            return View(model);
+        }
+
+        // GET: /Project/MajorFeature
+        public ActionResult MajorFeature() {
+            MajorFeature model = new Models.MajorFeature();
+
+            var teambind = from p in db.Teams
+                           select p;
+
+            List<Teams> teamname = new List<Teams>();
+
+            foreach (var item1 in teambind) {
+                Teams team = new Teams() { TeamId = item1.TeamId, TeamName = item1.TeamName };
+                teamname.Add(team);
+            }
+
+            ViewBag.teamid = new SelectList(teamname, "TeamId", "TeamName", model.TeamId);
+
+            var projectbind = from p in db.Projects
+                              select p;
+
+            List<Projects> projectname = new List<Projects>();
+
+            foreach (var item1 in projectbind) {
+                Projects project = new Projects() { ProjectId = item1.ProjectId, ProjectNum = item1.ProjectNum };
+                projectname.Add(project);
+            }
+
+            ViewBag.projectid = new SelectList(projectname, "ProjectId", "ProjectNum", model.ProjectId);
+
+            return View(model);
+        }
+
+        // POST: /Project/MajorFeature
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MajorFeature(MajorFeature majorfeature) {
+            if (ModelState.IsValid) {
+                db.MajorFeature.Add(majorfeature);
+                db.SaveChanges();
+
+                var teambind = (from p in db.MajorFeature
+                                select p.MFId).Max();
+
+                RFE rfe = new RFE();
+                rfe.MFId = teambind;
+                rfe.ProjectId = majorfeature.ProjectId;
+                rfe.TeamId = majorfeature.TeamId;
+                db.RFE.Add(rfe);
+                db.SaveChanges();
+
+                return RedirectToAction("Projects");
+            }
+            return View(majorfeature);
         }
     }
 }

@@ -403,7 +403,6 @@
     <Content Include="Views\Admin\RolesCreate.cshtml" />
     <Content Include="Views\Admin\RolesDetails.cshtml" />
     <Content Include="Views\Admin\RolesEdit.cshtml" />
-    <Content Include="Views\Admin\vRig.cshtml" />
     <Content Include="Views\Shared\_AppLayout.cshtml" />
     <Content Include="Views\Shared\_Dashboard.cshtml" />
     <Content Include="Views\Admin\AddToolUsers.cshtml" />
@@ -419,7 +418,6 @@
     <Content Include="Views\ReleaseInfo\ReleaseInfosDelete.cshtml" />
     <Content Include="Views\ReleaseInfo\ReleaseInfosDetails.cshtml" />
     <Content Include="Views\ReleaseInfo\ReleaseInfosEdit.cshtml" />
-    <Content Include="Views\Sprint\MajorFeature.cshtml" />
     <Content Include="Views\Sprint\SprintCreate.cshtml" />
     <Content Include="Views\Sprint\Sprints.cshtml" />
     <Content Include="Views\Team\Delete.cshtml" />
@@ -434,6 +432,15 @@
     <Content Include="Views\TimeTrack\AddHours.cshtml" />
     <Content Include="Views\Team\MemberTeams.cshtml" />
     <Content Include="Views\Team\Admin.cshtml" />
+    <Content Include="Views\Sprint\StoryCreate.cshtml" />
+    <Content Include="Views\Sprint\TaskCreate.cshtml" />
+    <Content Include="Views\Project\FRDetail.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Project\MajorFeature.cshtml" />
+    <Content Include="Views\Project\RFE.cshtml" />
+    <Content Include="Views\Project\RFECreate.cshtml" />
+    <Content Include="Views\Project\RFEEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

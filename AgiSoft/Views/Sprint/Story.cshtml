@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<AgiSoft.Models.Stories>
+
+@{
     ViewBag.Title = "Story";
 }
 
@@ -15,12 +17,44 @@
     </ul>
 </nav>
 
-<p>
-    This could be a small window that gets popped up<br />
-    Means to edit information in the story
-</p>
-<ul>
-    <li>points</li>
-    <li>Est Hours(?)</li>
-    <li>tasks</li>
-</ul>
+<script type="text/javascript">
+    function opentask(value) {
+        window.open('../Sprint/TaskCreate?StoryId=' + value, null, 'height=500, width=1100, status=no, resizable=no, scrollbars=yes, toolbar=no,location=no, menubar=no');
+    }
+</script>
+
+@if (Model != null)
+{
+    <table border="1px" style="grid-column: auto">
+        <tr>
+            <td><b>Story Description</b>
+            </td>
+            <td><b>Hours</b>
+            </td>
+            <td><b>Points</b>
+            </td>
+            <td><b>Rank</b>
+            </td>
+        </tr>
+        @foreach (var item in Model)
+        {   
+            <tr>
+                <td>
+                    @item.StoryDesc
+                </td>
+                <td>
+                    @item.Hours
+                </td>
+                <td>
+                    @item.Points
+                </td>
+                <td>
+                    @item.Rank
+                </td>
+                <td>
+                    <input type="button" value="Add Task" name="Add Task" title="Add Task" onclick="return opentask('@item.StoryId')" />
+                </td>
+            </tr>
+        }
+    </table>
+}

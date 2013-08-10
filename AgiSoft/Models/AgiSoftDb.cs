@@ -9,6 +9,7 @@
 ************************************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -31,7 +32,7 @@ namespace AgiSoft.Models {
         public DbSet<PassQuesAnswers> PassQuesAnswers { get; set; }
         public DbSet<PasswordHistory> PasswordHistory { get; set; }
         public DbSet<PasswordQuestions> PasswordQuestions { get; set; }
-        public DbSet<Projects> Projects { get; set; }
+        public DbSet<Projects> Projects { get; set; }   
         public DbSet<ProjRelInfo> ProjRelInfo { get; set; }
         public DbSet<ReleaseInfo> ReleaseInfo { get; set; }
         public DbSet<RFE> RFE { get; set; }
@@ -115,14 +116,14 @@ namespace AgiSoft.Models {
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int FRId { get; set; }
 
-        [ForeignKey("MajorFeature")]
-        public int MFId { get; set; }
+        [ForeignKey("RFE")]
+        public int RFEId { get; set; }
 
         public string FRNum { get; set; }
         public string FRDesc { get; set; }
-        public double FREstimate { get; set; }
+        public double? EM_MF { get; set; }
 
-        public virtual MajorFeature MajorFeature { get; set; }
+        public virtual RFE RFE { get; set; }
     }
 
     public class HoursBreakDown {
@@ -287,6 +288,18 @@ namespace AgiSoft.Models {
         public virtual Teams Teams { get; set; }
     }
 
+    public class SprintMajorFeatures {
+        [Key]
+        public int MFId { get; set; }
+
+        public string ProjectNum { get; set; }
+        public string ProjectName { get; set; }
+        public string MFNum { get; set; }
+        public string MFDesc { get; set; }
+        public string MFTeamName { get; set; }
+        public string TotalEfforts { get; set; }
+    }
+
     public class Stories {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -297,6 +310,14 @@ namespace AgiSoft.Models {
         public int Rank { get; set; }
         public int Hours { get; set; }
         public int Status { get; set; }
+
+        [ForeignKey("Projects")]
+        public int ProjectId { get; set; }
+        [ForeignKey("Teams")]
+        public int TeamId { get; set; }
+
+        public virtual Projects Projects { get; set; }
+        public virtual Teams Teams { get; set; }
     }
 
     public class Tasks {
@@ -310,6 +331,14 @@ namespace AgiSoft.Models {
         public int ActualHours { get; set; }
         public int Rank { get; set; }
         public int Status { get; set; }
+
+        [ForeignKey("Projects")]
+        public int ProjectId { get; set; }
+        [ForeignKey("Teams")]
+        public int TeamId { get; set; }
+
+        public virtual Projects Projects { get; set; }
+        public virtual Teams Teams { get; set; }
     }
 
     public class Teams {
@@ -319,7 +348,13 @@ namespace AgiSoft.Models {
         public string TeamCode { get; set; }
         public string TeamName { get; set; }
         public string TeamDesc { get; set; }
+
+        [ForeignKey("Settings")]
         public int SettingId { get; set; }
+
+        public List<SprintMajorFeatures> majorfeature { get; set; }
+
+        public virtual Settings Settings { get; set; }
     }
 
     public class TeamOnProject {

@@ -1,0 +1,56 @@
+﻿@model List<AgiSoft.Models.FunctionReq>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>FRDetail</title>
+    <script type="text/javascript">
+        function closeme() {
+            self.close();
+        }
+    </script>
+</head>
+<body>
+    <div>
+        @if (Model != null)
+        {            
+            <table align="center" border="1">
+                <tr>
+                    <td style="color:Red"><b>FR Num</b>
+                    </td>
+                    <td style="width:600px;color:Red"><b>FR Description</b>
+                    </td>
+                    <td style="color:Red"><b>Total EM_MF</b>
+                    </td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.FRNum
+                        </td>
+                        <td>
+                            @item.FRDesc
+                        </td>
+                        <td>
+                            @item.EM_MF
+                        </td>
+                    </tr>                  
+                }
+            </table> 
+        }
+        <table style="text-align:center">
+            <tr>
+                <td>
+                    <input type="button" title="Close" name="Close" value="Close" onclick="return closeme();" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

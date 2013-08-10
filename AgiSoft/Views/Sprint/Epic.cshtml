@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<AgiSoft.Models.Epics>
+
+@{
     ViewBag.Title = "Epic";
 }
 
@@ -15,11 +17,52 @@
     </ul>
 </nav>
 
-<p>
-    This could be a small window that gets popped up<br />
-    Means to edit information in the epic
-</p>
-<ul>
-    <li>points</li>
-    <li>stories</li>
-</ul>
+<script type="text/javascript">
+    function openstory(value) {
+        window.open('../Sprint/StoryCreate?EpicId=' + value, null, 'height=500, width=1100, status=no, resizable=no, scrollbars=yes, toolbar=no,location=no, menubar=no');
+    }
+</script>
+
+@if (Model != null) {
+    <table style="border-width:1px;grid-column: auto">
+        <tr>
+            <td><b>Project Number</b>
+            </td>
+            <td><b>Project Name</b>
+            </td>
+            <td><b>Team Name</b>
+            </td>
+            <td><b>Epic Descriptioin</b>
+            </td>
+            <td><b>Point</b>
+            </td>
+            <td><b>Rank</b>
+            </td>
+        </tr>
+        @foreach (var item in Model) {   
+            <tr>
+                <td>
+                    @item.Projects.ProjectNum
+                </td>
+                <td>
+                    @item.Projects.ProjectName
+                </td>
+                <td>
+                    @item.Teams.TeamName
+                </td>
+                <td>
+                    @item.EpicDesc
+                </td>
+                <td>
+                    @item.Points
+                </td>
+                <td>
+                    @item.Rank
+                </td>
+                <td>
+                    <input type="button" value="Add Story" name="Add Story" title="Add Story" onclick="return openstory('@item.EpicId')" />
+                </td>
+            </tr>
+        }
+    </table>
+}
